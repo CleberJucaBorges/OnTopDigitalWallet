@@ -9,9 +9,7 @@ import java.util.Optional;
 
 @Service
 public class AccountService {
-    final
-    IAccountRepository accountRepository;
-
+    private final IAccountRepository accountRepository;
     public AccountService(IAccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }

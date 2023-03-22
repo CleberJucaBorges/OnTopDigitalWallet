@@ -1,16 +1,18 @@
 package com.ontopchallenge.ontopdigitalwallet.Model;
-import com.ontopchallenge.ontopdigitalwallet.Model.Base.BaseEntityLongIdentity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ontopchallenge.ontopdigitalwallet.Model.Base.BaseEntityIdentity;
 import lombok.*;
 import javax.persistence.*;
-import java.io.Serializable;
+import java.util.List;
+
 @Entity
-@Table(name = "tb_account")
+@Table(name = "account")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class AccountModel extends BaseEntityLongIdentity implements Serializable {
+public class AccountModel extends BaseEntityIdentity  {
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
@@ -21,4 +23,12 @@ public class AccountModel extends BaseEntityLongIdentity implements Serializable
     private int accountNumber;
     @Column(nullable = false)
     private String bankName;
+
+    @JsonIgnoreProperties("account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    private List<WalletTransactionModel> transactions;
+
+    @JsonIgnoreProperties("account")
+    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    private BalanceModel balance;
 }

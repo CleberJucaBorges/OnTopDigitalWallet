@@ -1,6 +1,6 @@
 package com.ontopchallenge.ontopdigitalwallet.Controller;
-import com.ontopchallenge.ontopdigitalwallet.Dto.AccountRequestDto;
-import com.ontopchallenge.ontopdigitalwallet.Dto.AccountResponseDto;
+import com.ontopchallenge.ontopdigitalwallet.Dto.Account.AccountRequestDto;
+import com.ontopchallenge.ontopdigitalwallet.Dto.Account.AccountResponseDto;
 import com.ontopchallenge.ontopdigitalwallet.Model.AccountModel;
 import com.ontopchallenge.ontopdigitalwallet.Service.AccountService;
 import org.springframework.beans.BeanUtils;
@@ -49,7 +49,7 @@ public class AccountController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not found");
 
         var response = new AccountResponseDto();
-        BeanUtils.copyProperties(accountService.save(accountModelOptional.get()), response);
+        BeanUtils.copyProperties(accountModelOptional.get(), response);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
