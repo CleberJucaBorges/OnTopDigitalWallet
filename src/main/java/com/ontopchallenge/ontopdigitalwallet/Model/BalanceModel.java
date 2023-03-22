@@ -10,7 +10,6 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class BalanceModel extends BaseEntityIdentity {
     private Double amount;
     @JsonIgnoreProperties("balance")

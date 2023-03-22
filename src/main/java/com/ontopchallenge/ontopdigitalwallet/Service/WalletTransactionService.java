@@ -1,9 +1,11 @@
 package com.ontopchallenge.ontopdigitalwallet.Service;
-import com.ontopchallenge.ontopdigitalwallet.Exception.InvalidTransactionTypeException;
-import com.ontopchallenge.ontopdigitalwallet.Exception.NotEnoughBalanceException;
+import com.ontopchallenge.ontopdigitalwallet.Enum.TransactionType;
+import com.ontopchallenge.ontopdigitalwallet.Enum.WalletTransactionStatus;
+import com.ontopchallenge.ontopdigitalwallet.Exception.*;
 import com.ontopchallenge.ontopdigitalwallet.Model.BalanceModel;
 import com.ontopchallenge.ontopdigitalwallet.Model.WalletTransactionModel;
 import com.ontopchallenge.ontopdigitalwallet.Repository.IWalletTransactionRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -24,15 +26,14 @@ public class WalletTransactionService {
     }
 
     @Transactional
-    public WalletTransactionModel save(WalletTransactionModel walletTransactionModel)
-            throws NotEnoughBalanceException
-            , InvalidTransactionTypeException {
-
+    public WalletTransactionModel save(@NotNull WalletTransactionModel walletTransactionModel)
+            throws  NotEnoughBalanceException,
+                    InvalidTransactionTypeException {
 
         switch (walletTransactionModel.getTransactionType()) {
             case TOPUP -> walletTransactionModel = saveTopUp(walletTransactionModel);
             case WITHDRAW -> walletTransactionModel = saveWithDraw(walletTransactionModel);
-            case CANCELED -> walletTransactionModel = cancellWithDraw(walletTransactionModel);
+            case CANCELED -> walletTransactionModel = cancelWithdraw(walletTransactionModel);
             default -> throw new InvalidTransactionTypeException("Invalid transaction type");
         }
         return walletTransactionModel;
@@ -41,6 +42,7 @@ public class WalletTransactionService {
     private WalletTransactionModel saveTopUp(WalletTransactionModel walletTransactionModel)
     {
         saveBalanceOnSaveTopUp(walletTransactionModel);
+        walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.FINISHED);
         walletTransactionModel.setCreatedAt(LocalDateTime.now());
         return  walletTransactionRepository.save(walletTransactionModel);
     }
@@ -61,12 +63,17 @@ public class WalletTransactionService {
             balance.setAccount(walletTransactionModel.getAccount());
             balance.setUpdatedAt(LocalDateTime.now());
         }
-        balance.setCreatedBy("api_user");
+        balance.setCreatedBy("sys_user");
         balanceService.save(balance);
     }
 
-    private WalletTransactionModel cancellWithDraw(WalletTransactionModel walletTransactionModel) throws NotEnoughBalanceException {
-        var balance =  verifyBalance(walletTransactionModel);
+    private WalletTransactionModel cancelWithdraw(WalletTransactionModel walletTransactionModel) throws NotEnoughBalanceException {
+        BalanceModel balance;
+        try {
+            balance = verifyBalance(walletTransactionModel);
+        } catch (BalanceNotExistException e) {
+            throw new RuntimeException(e);
+        }
         balanceService.save(balance);
         applyFee(walletTransactionModel);
         walletTransactionModel.setCreatedAt(LocalDateTime.now());
@@ -74,10 +81,17 @@ public class WalletTransactionService {
     }
     private WalletTransactionModel saveWithDraw(WalletTransactionModel walletTransactionModel)
             throws NotEnoughBalanceException {
-        var balance =  verifyBalance(walletTransactionModel);
+
+        BalanceModel balance;
+        try {
+            balance = verifyBalance(walletTransactionModel);
+        } catch (BalanceNotExistException e) {
+            throw new RuntimeException(e);
+        }
         balanceService.save(balance);
         applyFee(walletTransactionModel);
         walletTransactionModel.setCreatedAt(LocalDateTime.now());
+        walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.PROCESSING);
         return  walletTransactionRepository.save(walletTransactionModel);
     }
 
@@ -87,8 +101,12 @@ public class WalletTransactionService {
         walletTransactionModel.setFeeAmount(feeAmount );
     }
 
-    private BalanceModel verifyBalance(WalletTransactionModel walletTransactionModel) throws NotEnoughBalanceException {
+    private BalanceModel verifyBalance(WalletTransactionModel walletTransactionModel) throws BalanceNotExistException, NotEnoughBalanceException {
         BalanceModel balance =  balanceService.findByAccountId(walletTransactionModel.getAccount().getId());
+
+        if (balance == null)
+            throw new BalanceNotExistException("you have to deposit into your account first for to do an withdraw");
+
         double newBalance = balance.getAmount() - walletTransactionModel.getAmount();
         if (newBalance < 0)
             throw new NotEnoughBalanceException("not enough balance");
@@ -96,9 +114,27 @@ public class WalletTransactionService {
         return balance;
     }
     @Transactional
-    public WalletTransactionModel updateStatus(WalletTransactionModel walletTransactionModel) {
+    public WalletTransactionModel updateStatus(WalletTransactionModel walletTransactionModel , WalletTransactionStatus newStatus ) throws WalletTransactionAlreadyCanceledException, InvalidTransactionTypeException, WalletTransactionAlreadyFinishedException {
+
+        var actualStatus = walletTransactionModel.getWalletTransactionStatus();
+
+        if (actualStatus == WalletTransactionStatus.CANCELED)
+            throw new WalletTransactionAlreadyCanceledException("this transaction has already been canceled");
+
+        if (actualStatus == WalletTransactionStatus.FINISHED)
+            throw new WalletTransactionAlreadyFinishedException("this transaction is already finished");
+
+        if (newStatus == WalletTransactionStatus.CANCELED && walletTransactionModel.getTransactionType() == TransactionType.WITHDRAW )
+        {
+            balanceService.recomposeBalance(walletTransactionModel);
+        }
+
+        if (newStatus == WalletTransactionStatus.CANCELED && walletTransactionModel.getTransactionType() == TransactionType.TOPUP )
+        {
+            throw new InvalidTransactionTypeException("cancel a TopUp transaction is not possible,  you may have to make an withdraw");
+        }
+        walletTransactionModel.setWalletTransactionStatus(newStatus);
         walletTransactionModel.setUpdatedAt(LocalDateTime.now());
-        //if status is cancelled you have to add the value to the Balance
         return  walletTransactionRepository.save(walletTransactionModel);
     }
 
@@ -109,30 +145,20 @@ public class WalletTransactionService {
     public Optional<WalletTransactionModel> findById(long id) {
         return walletTransactionRepository.findById(id);
     }
-
-
-
- public Page<WalletTransactionModel> findPageable(
-         Long account_id
-         ,   LocalDateTime  createdAtStart
-         ,   LocalDateTime  createdAtEnd
-         ,   Double amountStart
-         ,   Double amountEnd
-         ,   Pageable pageable)
- {
-     return walletTransactionRepository.findByAccount_IdAndCreatedAtBetweenAndAmountBetween
-     (
-        account_id
-     ,  createdAtStart
-     ,  createdAtEnd
-     ,  amountStart
-     ,  amountEnd
-     ,  pageable
-     );
- }
-
-
-
-
+    public Page<WalletTransactionModel> findByAccountId(
+                Long account_id
+            ,  LocalDateTime  createdAtStart
+            ,  LocalDateTime  createdAtEnd
+            ,  Double amountStart
+            ,  Double amountEnd
+            ,  Pageable pageable){
+         return walletTransactionRepository.findByAccount_IdAndCreatedAtBetweenAndAmountBetween(
+                    account_id
+                 ,  createdAtStart
+                 ,  createdAtEnd
+                 ,  amountStart
+                 ,  amountEnd
+                 ,  pageable
+         );
+     }
 }
-

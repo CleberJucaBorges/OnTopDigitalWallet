@@ -11,7 +11,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class AccountModel extends BaseEntityIdentity  {
     @Column(nullable = false)
     private String name;

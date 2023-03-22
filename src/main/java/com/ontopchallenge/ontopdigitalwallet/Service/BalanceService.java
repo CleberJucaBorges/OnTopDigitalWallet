@@ -1,6 +1,7 @@
 package com.ontopchallenge.ontopdigitalwallet.Service;
 
 import com.ontopchallenge.ontopdigitalwallet.Model.BalanceModel;
+import com.ontopchallenge.ontopdigitalwallet.Model.WalletTransactionModel;
 import com.ontopchallenge.ontopdigitalwallet.Repository.IAccountRepository;
 import com.ontopchallenge.ontopdigitalwallet.Repository.IBalanceRepository;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,7 @@ import java.util.Optional;
 public class BalanceService {
 
     private final IBalanceRepository  balanceRepository;
-    public BalanceService(IBalanceRepository  balanceRepository,
-                          IAccountRepository accountRepository) {
+    public BalanceService(IBalanceRepository  balanceRepository) {
         this.balanceRepository = balanceRepository;
     }
 
@@ -34,6 +34,15 @@ public class BalanceService {
             balanceModel.setUpdatedAt(LocalDateTime.now());
         }
         return balanceRepository.save(balanceModel);
+    }
+
+
+    @Transactional
+    public void recomposeBalance(WalletTransactionModel walletTransactionModel )
+    {
+        BalanceModel balanceModel = balanceRepository.findByAccount_Id(walletTransactionModel.getAccount().getId());
+        balanceModel.setAmount(balanceModel.getAmount() + walletTransactionModel.getAmount() );
+        balanceRepository.save(balanceModel);
     }
 }
 
