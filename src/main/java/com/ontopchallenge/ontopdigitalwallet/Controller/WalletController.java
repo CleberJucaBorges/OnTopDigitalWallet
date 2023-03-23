@@ -138,7 +138,6 @@ public class WalletController {
         } catch (WalletTransactionAlreadyFinishedException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()) ;
         }
-
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response) ;
     }
 }

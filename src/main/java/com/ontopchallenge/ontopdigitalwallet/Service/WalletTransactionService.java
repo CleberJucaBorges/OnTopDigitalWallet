@@ -27,8 +27,8 @@ public class WalletTransactionService {
 
     @Transactional
     public WalletTransactionModel save(@NotNull WalletTransactionModel walletTransactionModel)
-            throws  NotEnoughBalanceException,
-                    InvalidTransactionTypeException {
+            throws NotEnoughBalanceException,
+            InvalidTransactionTypeException, BalanceNotExistException, InvalidWalletTransactionStatusException {
 
         switch (walletTransactionModel.getTransactionType()) {
             case TOPUP -> walletTransactionModel = saveTopUp(walletTransactionModel);
@@ -79,15 +79,23 @@ public class WalletTransactionService {
         walletTransactionModel.setCreatedAt(LocalDateTime.now());
         return  walletTransactionRepository.save(walletTransactionModel);
     }
-    private WalletTransactionModel saveWithDraw(WalletTransactionModel walletTransactionModel)
-            throws NotEnoughBalanceException {
+    public WalletTransactionModel saveWithDraw(WalletTransactionModel walletTransactionModel)
+            throws NotEnoughBalanceException, BalanceNotExistException, InvalidWalletTransactionStatusException {
+
+        if (walletTransactionModel.getWalletTransactionStatus() != WalletTransactionStatus.PROCESSING) {
+            throw new InvalidWalletTransactionStatusException("invalid status for this type of transaction");
+        }
 
         BalanceModel balance;
         try {
             balance = verifyBalance(walletTransactionModel);
         } catch (BalanceNotExistException e) {
-            throw new RuntimeException(e);
+            throw e;
         }
+        catch (NotEnoughBalanceException e) {
+            throw e;
+        }
+
         balanceService.save(balance);
         applyFee(walletTransactionModel);
         walletTransactionModel.setCreatedAt(LocalDateTime.now());
@@ -101,7 +109,7 @@ public class WalletTransactionService {
         walletTransactionModel.setFeeAmount(feeAmount );
     }
 
-    private BalanceModel verifyBalance(WalletTransactionModel walletTransactionModel) throws BalanceNotExistException, NotEnoughBalanceException {
+    public BalanceModel verifyBalance(WalletTransactionModel walletTransactionModel) throws BalanceNotExistException, NotEnoughBalanceException {
         BalanceModel balance =  balanceService.findByAccountId(walletTransactionModel.getAccount().getId());
 
         if (balance == null)
@@ -125,14 +133,11 @@ public class WalletTransactionService {
             throw new WalletTransactionAlreadyFinishedException("this transaction is already finished");
 
         if (newStatus == WalletTransactionStatus.CANCELED && walletTransactionModel.getTransactionType() == TransactionType.WITHDRAW )
-        {
             balanceService.recomposeBalance(walletTransactionModel);
-        }
 
         if (newStatus == WalletTransactionStatus.CANCELED && walletTransactionModel.getTransactionType() == TransactionType.TOPUP )
-        {
             throw new InvalidTransactionTypeException("cancel a TopUp transaction is not possible,  you may have to make an withdraw");
-        }
+
         walletTransactionModel.setWalletTransactionStatus(newStatus);
         walletTransactionModel.setUpdatedAt(LocalDateTime.now());
         return  walletTransactionRepository.save(walletTransactionModel);
