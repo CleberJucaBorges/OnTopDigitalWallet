@@ -28,6 +28,8 @@ public class AccountModel extends BaseEntityIdentity  {
     @JsonIgnoreProperties("account")
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<DestinationAccountModel> destinationAccounts;
+    @Column(nullable = false)
+    private String currency;
     @JsonIgnoreProperties("account")
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     private BalanceModel balance;

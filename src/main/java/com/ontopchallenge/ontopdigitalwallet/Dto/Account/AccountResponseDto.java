@@ -8,4 +8,6 @@ public class AccountResponseDto {
     private Long identificationNumber;
     private int accountNumber;
     private String bankName;
+    private String currency;
+
 }

@@ -2,11 +2,14 @@ package com.ontopchallenge.ontopdigitalwallet.Controller;
 import com.ontopchallenge.ontopdigitalwallet.Dto.Wallet.WalletTransactionRequestDto;
 import com.ontopchallenge.ontopdigitalwallet.Dto.Wallet.WalletTransactionResponseDto;
 import com.ontopchallenge.ontopdigitalwallet.Dto.Wallet.WalletTransactionStatusRequestDto;
+import com.ontopchallenge.ontopdigitalwallet.Enum.TransactionType;
 import com.ontopchallenge.ontopdigitalwallet.Enum.WalletTransactionStatus;
 import com.ontopchallenge.ontopdigitalwallet.Exception.*;
 import com.ontopchallenge.ontopdigitalwallet.Model.AccountModel;
+import com.ontopchallenge.ontopdigitalwallet.Model.DestinationAccountModel;
 import com.ontopchallenge.ontopdigitalwallet.Model.WalletTransactionModel;
 import com.ontopchallenge.ontopdigitalwallet.Service.AccountService;
+import com.ontopchallenge.ontopdigitalwallet.Service.DestinationAccountService;
 import com.ontopchallenge.ontopdigitalwallet.Service.WalletTransactionService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -26,12 +29,13 @@ import java.util.Optional;
 @CrossOrigin(origins = "*" , maxAge = 3600)
 @RequestMapping("/api/wallet/transactions")
 public class WalletController {
-    final
-    AccountService accountService;
-    WalletTransactionService walletTransactionService;
-    public WalletController(AccountService accountService , WalletTransactionService walletTransactionService) {
+    final AccountService accountService;
+    final WalletTransactionService walletTransactionService;
+    final DestinationAccountService destinationAccountService;
+    public WalletController(AccountService accountService , WalletTransactionService walletTransactionService, DestinationAccountService destinationAccountService) {
         this.accountService = accountService;
         this.walletTransactionService = walletTransactionService;
+        this.destinationAccountService = destinationAccountService;
     }
     @PostMapping
     public ResponseEntity<Object> saveWalletTransactions(@RequestBody @Valid WalletTransactionRequestDto walletRequestDto){
@@ -41,11 +45,26 @@ public class WalletController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not found");
         }
 
+        /*
+        if (walletRequestDto.getTransactionType() == TransactionType.TRANSFER)
+            destinationAccountService.findAll();
+*/
         var walletTransactionModel = new WalletTransactionModel();
         BeanUtils.copyProperties(walletRequestDto, walletTransactionModel);
-        walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.Procesing);
         walletTransactionModel.setAccount(accountModelOptional.get());
+        walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.Procesing);
         walletTransactionModel.setCreatedBy("api_user");
+
+        if (walletRequestDto.getTransactionType() == TransactionType.TRANSFER)
+        {
+            Optional<DestinationAccountModel> destinationAccountModelOptional = accountModelOptional.get().getDestinationAccounts()
+                    .stream()
+                    .filter(destinationAccount -> destinationAccount.getId() == walletRequestDto.getDestination_account_id())
+                    .findFirst();
+
+            walletTransactionModel.setDestinationAccount(destinationAccountModelOptional.get());
+        }
+
         var response = new WalletTransactionResponseDto();
         try {
             BeanUtils.copyProperties(walletTransactionService.save(walletTransactionModel), response);
@@ -125,19 +144,20 @@ public class WalletController {
                     walletTransactionService.updateStatus(  walletTransactionModelOptional.get() ,
                                                             walletTransactionStatusRequestDto.getWalletTransactionStatus()),
                     response);
-        } catch (WalletTransactionAlreadyCanceledException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()) ;
-        } catch (InvalidTransactionTypeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()) ;
-        } catch (WalletTransactionAlreadyFinishedException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()) ;
-        } catch (BalanceNotExistException e) {
-            throw new RuntimeException(e);
-        } catch (InvalidWalletTransactionStatusException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()) ;
-        } catch (NotEnoughBalanceException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()) ;
+        } catch (Exception e) {
+            if (    e instanceof WalletTransactionAlreadyCanceledException ||
+                    e instanceof InvalidTransactionTypeException ||
+                    e instanceof WalletTransactionAlreadyFinishedException ||
+                    e instanceof BalanceNotExistException ||
+                    e instanceof InvalidWalletTransactionStatusException ||
+                    e instanceof NotEnoughBalanceException) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            }else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("something went wrong, please contact support");
+            }
+
         }
+
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response) ;
     }
 }

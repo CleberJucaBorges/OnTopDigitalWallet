@@ -30,7 +30,7 @@ public class WalletTransactionModel extends BaseEntityIdentity  {
     @Column(nullable = false)
     private String currency;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "destination_account_id", nullable = true)
     @JsonIgnoreProperties("walletTransaction")
     private DestinationAccountModel destinationAccount;

@@ -18,4 +18,6 @@ public class AccountRequestDto {
     private int accountNumber;
     @NotBlank(message = "the field bank name is mandatory")
     private String bankName;
+    @NotBlank(message = "the field currency is mandatory")
+    private String currency;
 }

@@ -17,26 +17,63 @@ import java.util.Optional;
 public class WalletTransactionService {
     private final IWalletTransactionRepository walletTransactionRepository;
     private final BalanceService balanceService;
+    private final AccountService accountService;
+
+
     public WalletTransactionService(
-                IWalletTransactionRepository walletTransactionRepository
-            ,   BalanceService balanceService
-    ) {
+            IWalletTransactionRepository walletTransactionRepository
+            , BalanceService balanceService,
+            AccountService accountService) {
         this.walletTransactionRepository = walletTransactionRepository;
         this.balanceService = balanceService;
+        this.accountService = accountService;
     }
 
     @Transactional
     public WalletTransactionModel save(@NotNull WalletTransactionModel walletTransactionModel)
             throws NotEnoughBalanceException,
-            InvalidTransactionTypeException, BalanceNotExistException, InvalidWalletTransactionStatusException {
+            InvalidTransactionTypeException, BalanceNotExistException, InvalidDestinationAccountException {
+
+        /*
+            the field currency also exists on DestinationAccountModel
+            for a future implementation of conversion on transfer transactions
+            but for now it's always the currency of account
+         */
+        walletTransactionModel.setCurrency(setUpCurrencyForTransaction(walletTransactionModel));
 
         switch (walletTransactionModel.getTransactionType()) {
             case TOPUP -> walletTransactionModel = saveTopUp(walletTransactionModel);
             case WITHDRAW ->walletTransactionModel = saveWithDraw(walletTransactionModel);
-            //case CANCELED -> walletTransactionModel = cancelWithdraw(walletTransactionModel);
+            case TRANSFER -> walletTransactionModel = doTransfer(walletTransactionModel);
             default -> throw new InvalidTransactionTypeException("Invalid transaction type");
         }
         return walletTransactionModel;
+    }
+
+    private WalletTransactionModel doTransfer(WalletTransactionModel walletTransactionModel) throws BalanceNotExistException, NotEnoughBalanceException {
+
+        BalanceModel balance;
+        try {
+            balance = verifyBalance(walletTransactionModel);
+        } catch (BalanceNotExistException e) {
+            throw e;
+        }
+        catch (NotEnoughBalanceException e) {
+            throw e;
+        }
+        balanceService.save(balance);
+        applyFee(walletTransactionModel);
+
+        /*
+        Optional<DestinationAccountModel> destinationAccountOptional = destinationAccountService
+                .findById(walletTransactionModel.getDestinationAccount().getId());
+        DestinationAccountModel destinationAccount = destinationAccountOptional
+                .orElseThrow(() -> new InvalidDestinationAccountException("invalid destination account"));
+        */
+       // walletTransactionModel.setDestinationAccount(destinationAccountOptional.get());
+        walletTransactionModel.setCreatedAt(LocalDateTime.now());
+        walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.Procesing);
+        return  walletTransactionRepository.save(walletTransactionModel);
     }
 
     private WalletTransactionModel saveTopUp(WalletTransactionModel walletTransactionModel)
@@ -45,6 +82,10 @@ public class WalletTransactionService {
         walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.Completed);
         walletTransactionModel.setCreatedAt(LocalDateTime.now());
         return  walletTransactionRepository.save(walletTransactionModel);
+    }
+
+    private String setUpCurrencyForTransaction(WalletTransactionModel walletTransactionModel){
+        return accountService.findById(walletTransactionModel.getAccount().getId()).get().getCurrency();
     }
 
     private void saveBalanceOnSaveTopUp(WalletTransactionModel walletTransactionModel)
@@ -66,25 +107,8 @@ public class WalletTransactionService {
         balance.setCreatedBy("sys_user");
         balanceService.save(balance);
     }
-/*
-    private WalletTransactionModel cancelWithdraw(WalletTransactionModel walletTransactionModel) throws NotEnoughBalanceException {
-        BalanceModel balance;
-        try {
-            balance = verifyBalance(walletTransactionModel);
-        } catch (BalanceNotExistException e) {
-            throw new RuntimeException(e);
-        }
-        balanceService.save(balance);
-        applyFee(walletTransactionModel);
-        walletTransactionModel.setCreatedAt(LocalDateTime.now());
-        return  walletTransactionRepository.save(walletTransactionModel);
-    }*/
     public WalletTransactionModel saveWithDraw(WalletTransactionModel walletTransactionModel)
-            throws NotEnoughBalanceException, BalanceNotExistException, InvalidWalletTransactionStatusException {
-
-        if (walletTransactionModel.getWalletTransactionStatus() != WalletTransactionStatus.Procesing) {
-            throw new InvalidWalletTransactionStatusException("invalid status for this type of transaction");
-        }
+            throws NotEnoughBalanceException, BalanceNotExistException {
 
         BalanceModel balance;
         try {
@@ -99,7 +123,7 @@ public class WalletTransactionService {
         balanceService.save(balance);
         applyFee(walletTransactionModel);
         walletTransactionModel.setCreatedAt(LocalDateTime.now());
-        walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.Procesing);
+        walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.Completed);
         return  walletTransactionRepository.save(walletTransactionModel);
     }
 
@@ -113,7 +137,7 @@ public class WalletTransactionService {
         BalanceModel balance =  balanceService.findByAccountId(walletTransactionModel.getAccount().getId());
 
         if (balance == null)
-            throw new BalanceNotExistException("you have to deposit into your account first for to do an withdraw");
+            throw new BalanceNotExistException("you have to deposit into your account first");
 
         double newBalance = balance.getAmount() - walletTransactionModel.getAmount();
         if (newBalance < 0)
