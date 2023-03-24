@@ -22,15 +22,12 @@ public class AccountModel extends BaseEntityIdentity  {
     private int accountNumber;
     @Column(nullable = false)
     private String bankName;
-
     @JsonIgnoreProperties("account")
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<WalletTransactionModel> transactions;
-
     @JsonIgnoreProperties("account")
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<DestinationAccountModel> destinationAccounts;
-
     @JsonIgnoreProperties("account")
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     private BalanceModel balance;

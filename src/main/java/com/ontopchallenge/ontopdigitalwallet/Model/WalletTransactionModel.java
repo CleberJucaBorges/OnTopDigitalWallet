@@ -27,4 +27,12 @@ public class WalletTransactionModel extends BaseEntityIdentity  {
     private TransactionType transactionType;
     @Column
     private Double feeAmount;
+    @Column(nullable = false)
+    private String currency;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "destination_account_id", nullable = true)
+    @JsonIgnoreProperties("walletTransaction")
+    private DestinationAccountModel destinationAccount;
+
 }
