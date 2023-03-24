@@ -32,8 +32,8 @@ public class WalletTransactionService {
 
         switch (walletTransactionModel.getTransactionType()) {
             case TOPUP -> walletTransactionModel = saveTopUp(walletTransactionModel);
-            case WITHDRAW -> walletTransactionModel = saveWithDraw(walletTransactionModel);
-            case CANCELED -> walletTransactionModel = cancelWithdraw(walletTransactionModel);
+            case WITHDRAW ->walletTransactionModel = saveWithDraw(walletTransactionModel);
+            //case CANCELED -> walletTransactionModel = cancelWithdraw(walletTransactionModel);
             default -> throw new InvalidTransactionTypeException("Invalid transaction type");
         }
         return walletTransactionModel;
@@ -42,7 +42,7 @@ public class WalletTransactionService {
     private WalletTransactionModel saveTopUp(WalletTransactionModel walletTransactionModel)
     {
         saveBalanceOnSaveTopUp(walletTransactionModel);
-        walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.FINISHED);
+        walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.Completed);
         walletTransactionModel.setCreatedAt(LocalDateTime.now());
         return  walletTransactionRepository.save(walletTransactionModel);
     }
@@ -66,7 +66,7 @@ public class WalletTransactionService {
         balance.setCreatedBy("sys_user");
         balanceService.save(balance);
     }
-
+/*
     private WalletTransactionModel cancelWithdraw(WalletTransactionModel walletTransactionModel) throws NotEnoughBalanceException {
         BalanceModel balance;
         try {
@@ -78,11 +78,11 @@ public class WalletTransactionService {
         applyFee(walletTransactionModel);
         walletTransactionModel.setCreatedAt(LocalDateTime.now());
         return  walletTransactionRepository.save(walletTransactionModel);
-    }
+    }*/
     public WalletTransactionModel saveWithDraw(WalletTransactionModel walletTransactionModel)
             throws NotEnoughBalanceException, BalanceNotExistException, InvalidWalletTransactionStatusException {
 
-        if (walletTransactionModel.getWalletTransactionStatus() != WalletTransactionStatus.PROCESSING) {
+        if (walletTransactionModel.getWalletTransactionStatus() != WalletTransactionStatus.Procesing) {
             throw new InvalidWalletTransactionStatusException("invalid status for this type of transaction");
         }
 
@@ -99,7 +99,7 @@ public class WalletTransactionService {
         balanceService.save(balance);
         applyFee(walletTransactionModel);
         walletTransactionModel.setCreatedAt(LocalDateTime.now());
-        walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.PROCESSING);
+        walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.Procesing);
         return  walletTransactionRepository.save(walletTransactionModel);
     }
 
@@ -122,20 +122,20 @@ public class WalletTransactionService {
         return balance;
     }
     @Transactional
-    public WalletTransactionModel updateStatus(WalletTransactionModel walletTransactionModel , WalletTransactionStatus newStatus ) throws WalletTransactionAlreadyCanceledException, InvalidTransactionTypeException, WalletTransactionAlreadyFinishedException {
+    public WalletTransactionModel updateStatus(WalletTransactionModel walletTransactionModel , WalletTransactionStatus newStatus ) throws WalletTransactionAlreadyCanceledException, InvalidTransactionTypeException, WalletTransactionAlreadyFinishedException, BalanceNotExistException, InvalidWalletTransactionStatusException, NotEnoughBalanceException {
 
         var actualStatus = walletTransactionModel.getWalletTransactionStatus();
 
-        if (actualStatus == WalletTransactionStatus.CANCELED)
+        if (actualStatus == WalletTransactionStatus.Failed)
             throw new WalletTransactionAlreadyCanceledException("this transaction has already been canceled");
 
-        if (actualStatus == WalletTransactionStatus.FINISHED)
+        if (actualStatus == WalletTransactionStatus.Completed)
             throw new WalletTransactionAlreadyFinishedException("this transaction is already finished");
 
-        if (newStatus == WalletTransactionStatus.CANCELED && walletTransactionModel.getTransactionType() == TransactionType.WITHDRAW )
+        if (newStatus == WalletTransactionStatus.Failed && walletTransactionModel.getTransactionType() == TransactionType.WITHDRAW )
             balanceService.recomposeBalance(walletTransactionModel);
 
-        if (newStatus == WalletTransactionStatus.CANCELED && walletTransactionModel.getTransactionType() == TransactionType.TOPUP )
+        if (newStatus == WalletTransactionStatus.Failed && walletTransactionModel.getTransactionType() == TransactionType.TOPUP )
             throw new InvalidTransactionTypeException("cancel a TopUp transaction is not possible,  you may have to make an withdraw");
 
         walletTransactionModel.setWalletTransactionStatus(newStatus);

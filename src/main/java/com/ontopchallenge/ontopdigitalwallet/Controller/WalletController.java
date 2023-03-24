@@ -2,11 +2,8 @@ package com.ontopchallenge.ontopdigitalwallet.Controller;
 import com.ontopchallenge.ontopdigitalwallet.Dto.Wallet.WalletTransactionRequestDto;
 import com.ontopchallenge.ontopdigitalwallet.Dto.Wallet.WalletTransactionResponseDto;
 import com.ontopchallenge.ontopdigitalwallet.Dto.Wallet.WalletTransactionStatusRequestDto;
-import com.ontopchallenge.ontopdigitalwallet.Enum.TransactionType;
 import com.ontopchallenge.ontopdigitalwallet.Enum.WalletTransactionStatus;
-import com.ontopchallenge.ontopdigitalwallet.Exception.InvalidTransactionTypeException;
-import com.ontopchallenge.ontopdigitalwallet.Exception.WalletTransactionAlreadyCanceledException;
-import com.ontopchallenge.ontopdigitalwallet.Exception.WalletTransactionAlreadyFinishedException;
+import com.ontopchallenge.ontopdigitalwallet.Exception.*;
 import com.ontopchallenge.ontopdigitalwallet.Model.AccountModel;
 import com.ontopchallenge.ontopdigitalwallet.Model.WalletTransactionModel;
 import com.ontopchallenge.ontopdigitalwallet.Service.AccountService;
@@ -39,9 +36,6 @@ public class WalletController {
     @PostMapping
     public ResponseEntity<Object> saveWalletTransactions(@RequestBody @Valid WalletTransactionRequestDto walletRequestDto){
 
-        if (walletRequestDto.getTransactionType() == TransactionType.CANCELED )
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("transaction type invalid, use the update status method to cancel a transaction") ;
-
         Optional<AccountModel> accountModelOptional = accountService.findById(walletRequestDto.getAccount_id());
         if (accountModelOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not found");
@@ -49,7 +43,7 @@ public class WalletController {
 
         var walletTransactionModel = new WalletTransactionModel();
         BeanUtils.copyProperties(walletRequestDto, walletTransactionModel);
-        walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.PROCESSING);
+        walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.Procesing);
         walletTransactionModel.setAccount(accountModelOptional.get());
         walletTransactionModel.setCreatedBy("api_user");
         var response = new WalletTransactionResponseDto();
@@ -136,6 +130,12 @@ public class WalletController {
         } catch (InvalidTransactionTypeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()) ;
         } catch (WalletTransactionAlreadyFinishedException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()) ;
+        } catch (BalanceNotExistException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidWalletTransactionStatusException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()) ;
+        } catch (NotEnoughBalanceException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()) ;
         }
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response) ;

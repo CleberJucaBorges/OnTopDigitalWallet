@@ -50,7 +50,7 @@ class WalletTransactionServiceTest {
     @Test
     void saveTopUp_shouldSaveTopUpFirstTransaction(){
         WalletTransactionModel testTransaction = getDefaultTransaction();
-        testTransaction.setWalletTransactionStatus(WalletTransactionStatus.FINISHED);
+        testTransaction.setWalletTransactionStatus(WalletTransactionStatus.Completed);
         testTransaction.setTransactionType(TransactionType.TOPUP);
         testTransaction.setFeeAmount(null);
 
@@ -72,7 +72,7 @@ class WalletTransactionServiceTest {
         verify(walletTransactionRepository, times(1)).save(any(WalletTransactionModel.class));
 
         assertEquals(TransactionType.TOPUP, savedTransaction.getTransactionType());
-        assertEquals(WalletTransactionStatus.FINISHED, savedTransaction.getWalletTransactionStatus());
+        assertEquals(WalletTransactionStatus.Completed, savedTransaction.getWalletTransactionStatus());
         Assertions.assertNull(savedTransaction.getFeeAmount());
         assertEquals(savedTransaction.getAmount() , savedBalance.getAmount());
     }
@@ -82,7 +82,7 @@ class WalletTransactionServiceTest {
         testTransaction.setId(1);
         testTransaction.setAccount(testAccount);
         testTransaction.setAmount(100.0);
-        testTransaction.setWalletTransactionStatus(WalletTransactionStatus.FINISHED);
+        testTransaction.setWalletTransactionStatus(WalletTransactionStatus.Completed);
         testTransaction.setTransactionType(TransactionType.TOPUP);
         testTransaction.setFeeAmount(null);
         testTransaction.setCreatedAt(LocalDateTime.now());
@@ -104,7 +104,7 @@ class WalletTransactionServiceTest {
         verify(walletTransactionRepository, times(1)).save(any(WalletTransactionModel.class));
 
         assertEquals(TransactionType.TOPUP, savedTransaction.getTransactionType());
-        assertEquals(WalletTransactionStatus.FINISHED, savedTransaction.getWalletTransactionStatus());
+        assertEquals(WalletTransactionStatus.Completed, savedTransaction.getWalletTransactionStatus());
         Assertions.assertNotNull(savedTransaction.getCreatedAt());
         Assertions.assertNull(savedTransaction.getFeeAmount());
 
@@ -114,14 +114,14 @@ class WalletTransactionServiceTest {
     @Test
     void saveWithdraw_shouldSaveWithdrawTransactionWithWalletTransactionStatusEqualsPROCESSING()  {
         WalletTransactionModel testTransaction = getDefaultTransaction();
-        testTransaction.setWalletTransactionStatus(WalletTransactionStatus.PROCESSING);
+        testTransaction.setWalletTransactionStatus(WalletTransactionStatus.Procesing);
         testTransaction.setTransactionType(TransactionType.WITHDRAW);
         testTransaction.setFeeAmount(null);
 
         when(walletTransactionRepository.save(testTransaction)).thenReturn(testTransaction);
         WalletTransactionModel savedTransaction = walletTransactionRepository.save(testTransaction);
         verify(walletTransactionRepository, times(1)).save(any(WalletTransactionModel.class));
-        Assertions.assertEquals(WalletTransactionStatus.PROCESSING, savedTransaction.getWalletTransactionStatus());
+        Assertions.assertEquals(WalletTransactionStatus.Procesing, savedTransaction.getWalletTransactionStatus());
     }
 
     @Test
@@ -144,7 +144,7 @@ class WalletTransactionServiceTest {
         walletTransactionModel.setId(1L);
         walletTransactionModel.setAmount(100.0);
         walletTransactionModel.setTransactionType(TransactionType.WITHDRAW);
-        walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.PROCESSING);
+        walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.Procesing);
 
         BalanceModel balanceModel = new BalanceModel();
         balanceModel.setAmount(200.0);
@@ -159,7 +159,7 @@ class WalletTransactionServiceTest {
         verify(balanceService).save(balanceModel);
         verify(walletTransactionRepository).save(walletTransactionModel);
 
-        assertEquals(WalletTransactionStatus.PROCESSING, resultWalletTransaction.getWalletTransactionStatus());
+        assertEquals(WalletTransactionStatus.Procesing, resultWalletTransaction.getWalletTransactionStatus());
         assertTrue(resultBalance.getAmount() > 0);
     }
 
@@ -189,40 +189,40 @@ class WalletTransactionServiceTest {
         verifyNoInteractions(walletTransactionRepository);
     }
     @Test
-    public void updateStatus_shouldThrowWalletTransactionAlreadyCanceledExceptionAndNotSaveBalanceOrWalletTransaction() throws InvalidTransactionTypeException, WalletTransactionAlreadyFinishedException, WalletTransactionAlreadyCanceledException {
+    public void updateStatus_shouldThrowWalletTransactionAlreadyCanceledExceptionAndNotSaveBalanceOrWalletTransaction() throws InvalidTransactionTypeException, WalletTransactionAlreadyFinishedException, WalletTransactionAlreadyCanceledException, BalanceNotExistException, InvalidWalletTransactionStatusException, NotEnoughBalanceException {
         WalletTransactionModel walletTransactionModel = new WalletTransactionModel();
-        walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.CANCELED);
+        walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.Failed);
 
-        when(walletTransactionService.updateStatus(walletTransactionModel, WalletTransactionStatus.CANCELED )).thenThrow(new WalletTransactionAlreadyCanceledException("this transaction has already been canceled"));
+        when(walletTransactionService.updateStatus(walletTransactionModel, WalletTransactionStatus.Failed )).thenThrow(new WalletTransactionAlreadyCanceledException("this transaction has already been canceled"));
         assertThrows(WalletTransactionAlreadyCanceledException.class, () -> {
-            walletTransactionService.updateStatus(walletTransactionModel, WalletTransactionStatus.CANCELED);
+            walletTransactionService.updateStatus(walletTransactionModel, WalletTransactionStatus.Failed);
         });
 
         verifyNoInteractions(balanceService);
         verifyNoInteractions(walletTransactionRepository);
     }
     @Test
-    public void updateStatus_shouldThrowWalletTransactionAlreadyFinishedExceptionAndNotSaveBalanceOrWalletTransaction() throws  InvalidTransactionTypeException, WalletTransactionAlreadyFinishedException, WalletTransactionAlreadyCanceledException {
+    public void updateStatus_shouldThrowWalletTransactionAlreadyFinishedExceptionAndNotSaveBalanceOrWalletTransaction() throws InvalidTransactionTypeException, WalletTransactionAlreadyFinishedException, WalletTransactionAlreadyCanceledException, BalanceNotExistException, InvalidWalletTransactionStatusException, NotEnoughBalanceException {
         WalletTransactionModel walletTransactionModel = new WalletTransactionModel();
-        walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.FINISHED);
+        walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.Completed);
 
-        when(walletTransactionService.updateStatus(walletTransactionModel, WalletTransactionStatus.FINISHED )).thenThrow(new WalletTransactionAlreadyFinishedException("this transaction is already finished"));
+        when(walletTransactionService.updateStatus(walletTransactionModel, WalletTransactionStatus.Completed)).thenThrow(new WalletTransactionAlreadyFinishedException("this transaction is already finished"));
         assertThrows(WalletTransactionAlreadyFinishedException.class, () -> {
-            walletTransactionService.updateStatus(walletTransactionModel, WalletTransactionStatus.FINISHED);
+            walletTransactionService.updateStatus(walletTransactionModel, WalletTransactionStatus.Completed);
         });
 
         verifyNoInteractions(balanceService);
         verifyNoInteractions(walletTransactionRepository);
     }
     @Test
-    public void updateStatus_shouldThrowInvalidTransactionTypeExceptionExceptionAndNotSaveBalanceOrWalletTransaction() throws  InvalidTransactionTypeException, WalletTransactionAlreadyFinishedException, WalletTransactionAlreadyCanceledException {
+    public void updateStatus_shouldThrowInvalidTransactionTypeExceptionExceptionAndNotSaveBalanceOrWalletTransaction() throws InvalidTransactionTypeException, WalletTransactionAlreadyFinishedException, WalletTransactionAlreadyCanceledException, BalanceNotExistException, InvalidWalletTransactionStatusException, NotEnoughBalanceException {
         WalletTransactionModel walletTransactionModel = new WalletTransactionModel();
         walletTransactionModel.setTransactionType(TransactionType.TOPUP);
-        walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.CANCELED);
+        walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.Failed);
 
-        when(walletTransactionService.updateStatus(walletTransactionModel, WalletTransactionStatus.CANCELED )).thenThrow(new InvalidTransactionTypeException("this transaction is already finished"));
+        when(walletTransactionService.updateStatus(walletTransactionModel, WalletTransactionStatus.Failed )).thenThrow(new InvalidTransactionTypeException("this transaction is already finished"));
         assertThrows(InvalidTransactionTypeException.class, () -> {
-            walletTransactionService.updateStatus(walletTransactionModel, WalletTransactionStatus.CANCELED);
+            walletTransactionService.updateStatus(walletTransactionModel, WalletTransactionStatus.Failed);
         });
         verifyNoInteractions(balanceService);
         verifyNoInteractions(walletTransactionRepository);

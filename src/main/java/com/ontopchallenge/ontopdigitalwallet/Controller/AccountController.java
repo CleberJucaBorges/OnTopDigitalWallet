@@ -16,8 +16,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "*" , maxAge = 3600)
 @RequestMapping("/api/account")
 public class AccountController {
-    final
-    AccountService accountService;
+    final AccountService accountService;
     public AccountController(AccountService accountService) {
         this.accountService = accountService;
     }
