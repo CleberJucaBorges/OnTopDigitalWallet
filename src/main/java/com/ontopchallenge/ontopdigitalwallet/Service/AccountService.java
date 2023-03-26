@@ -32,9 +32,16 @@ public class AccountService {
     public Optional<AccountModel> findById(long id) {
         return accountRepository.findById(id);
     }
+
+    public boolean existsById(Long id) {
+        return accountRepository.existsById(id);
+    }
+
     @Transactional
     public void delete(AccountModel accountModel) {
         accountRepository.delete(accountModel);
     }
+
+
 }
 

@@ -45,10 +45,6 @@ public class WalletController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not found");
         }
 
-        /*
-        if (walletRequestDto.getTransactionType() == TransactionType.TRANSFER)
-            destinationAccountService.findAll();
-*/
         var walletTransactionModel = new WalletTransactionModel();
         BeanUtils.copyProperties(walletRequestDto, walletTransactionModel);
         walletTransactionModel.setAccount(accountModelOptional.get());

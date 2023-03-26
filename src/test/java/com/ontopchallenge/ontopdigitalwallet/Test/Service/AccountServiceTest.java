@@ -32,7 +32,7 @@ public class AccountServiceTest {
         account.setName("Cleber");
         account.setSurName("Juca");
         account.setIdentificationNumber(123456789L);
-        account.setAccountNumber(123);
+        account.setAccountNumber("asdf");
         account.setBankName("Bank");
 
         LocalDateTime now = LocalDateTime.now();
@@ -75,7 +75,7 @@ public class AccountServiceTest {
         account.setName("Cleber");
         account.setSurName("Juca");
         account.setIdentificationNumber(123456789L);
-        account.setAccountNumber(123);
+        account.setAccountNumber("111");
         account.setBankName("Bank");
         when(accountRepository.findById(id)).thenReturn(Optional.of(account));
 
@@ -99,7 +99,7 @@ public class AccountServiceTest {
         account.setName("Cleber");
         account.setSurName("Juca");
         account.setIdentificationNumber(123456789L);
-        account.setAccountNumber(123);
+        account.setAccountNumber("1221");
         account.setBankName("Bank");
 
         accountService.delete(account);

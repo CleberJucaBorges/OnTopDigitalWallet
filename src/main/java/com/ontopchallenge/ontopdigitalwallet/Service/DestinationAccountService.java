@@ -1,9 +1,7 @@
 package com.ontopchallenge.ontopdigitalwallet.Service;
 
 import com.ontopchallenge.ontopdigitalwallet.Exception.InvalidAccountException;
-import com.ontopchallenge.ontopdigitalwallet.Model.AccountModel;
 import com.ontopchallenge.ontopdigitalwallet.Model.DestinationAccountModel;
-import com.ontopchallenge.ontopdigitalwallet.Repository.IAccountRepository;
 import com.ontopchallenge.ontopdigitalwallet.Repository.IDestinationAccountRepository;
 import org.springframework.stereotype.Service;
 
@@ -43,5 +41,9 @@ public class DestinationAccountService {
         return destinationAccountRepository.findById(id);
     }
 
+
+    public boolean existsById(Long id) {
+        return destinationAccountRepository.existsById(id);
+    }
 }
 

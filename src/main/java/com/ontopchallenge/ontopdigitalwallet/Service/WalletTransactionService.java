@@ -1,7 +1,11 @@
 package com.ontopchallenge.ontopdigitalwallet.Service;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.ontopchallenge.ontopdigitalwallet.Dto.BankProvider.BankProviderRequestDTO;
+import com.ontopchallenge.ontopdigitalwallet.Dto.BankProvider.BankProviderResponseDTO;
 import com.ontopchallenge.ontopdigitalwallet.Enum.TransactionType;
 import com.ontopchallenge.ontopdigitalwallet.Enum.WalletTransactionStatus;
 import com.ontopchallenge.ontopdigitalwallet.Exception.*;
+import com.ontopchallenge.ontopdigitalwallet.Infra.BankTransferHttpRequest;
 import com.ontopchallenge.ontopdigitalwallet.Model.BalanceModel;
 import com.ontopchallenge.ontopdigitalwallet.Model.WalletTransactionModel;
 import com.ontopchallenge.ontopdigitalwallet.Repository.IWalletTransactionRepository;
@@ -13,26 +17,29 @@ import org.springframework.data.domain.Pageable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class WalletTransactionService {
     private final IWalletTransactionRepository walletTransactionRepository;
     private final BalanceService balanceService;
     private final AccountService accountService;
+    private final BankTransferHttpRequest bankTransferHttpRequest;
 
 
     public WalletTransactionService(
             IWalletTransactionRepository walletTransactionRepository
             , BalanceService balanceService,
-            AccountService accountService) {
+            AccountService accountService, BankTransferHttpRequest bankTransferHttpRequest) {
         this.walletTransactionRepository = walletTransactionRepository;
         this.balanceService = balanceService;
         this.accountService = accountService;
+        this.bankTransferHttpRequest = bankTransferHttpRequest;
     }
 
     @Transactional
     public WalletTransactionModel save(@NotNull WalletTransactionModel walletTransactionModel)
             throws NotEnoughBalanceException,
-            InvalidTransactionTypeException, BalanceNotExistException, InvalidDestinationAccountException {
+            InvalidTransactionTypeException, BalanceNotExistException, InvalidDestinationAccountException, JsonProcessingException {
 
         /*
             the field currency also exists on DestinationAccountModel
@@ -50,7 +57,7 @@ public class WalletTransactionService {
         return walletTransactionModel;
     }
 
-    private WalletTransactionModel doTransfer(WalletTransactionModel walletTransactionModel) throws BalanceNotExistException, NotEnoughBalanceException {
+    private WalletTransactionModel doTransfer(WalletTransactionModel walletTransactionModel) throws BalanceNotExistException, NotEnoughBalanceException, JsonProcessingException {
 
         BalanceModel balance;
         try {
@@ -63,17 +70,50 @@ public class WalletTransactionService {
         }
         balanceService.save(balance);
         applyFee(walletTransactionModel);
-
-        /*
-        Optional<DestinationAccountModel> destinationAccountOptional = destinationAccountService
-                .findById(walletTransactionModel.getDestinationAccount().getId());
-        DestinationAccountModel destinationAccount = destinationAccountOptional
-                .orElseThrow(() -> new InvalidDestinationAccountException("invalid destination account"));
-        */
-       // walletTransactionModel.setDestinationAccount(destinationAccountOptional.get());
         walletTransactionModel.setCreatedAt(LocalDateTime.now());
         walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.Procesing);
+
+        BankProviderResponseDTO bankResponse = this.buildTransferRequest(walletTransactionModel);
+        walletTransactionModel.setExternal_id(bankResponse.getPaymentInfo().getId());
+
         return  walletTransactionRepository.save(walletTransactionModel);
+    }
+
+    private BankProviderResponseDTO buildTransferRequest(WalletTransactionModel walletTransactionModel)
+    {
+        BankProviderRequestDTO.SourceInformation sourceInformation = BankProviderRequestDTO.SourceInformation.builder()
+                .name(walletTransactionModel.getAccount().getName() + " " + walletTransactionModel.getAccount().getSurName())
+                .build();
+
+        BankProviderRequestDTO.Account sourceAccount = BankProviderRequestDTO.Account.builder()
+                .accountNumber(walletTransactionModel.getAccount().getAccountNumber())
+                .currency(walletTransactionModel.getCurrency())
+                .routingNumber(walletTransactionModel.getAccount().getRoutingNumber())
+                .build();
+        BankProviderRequestDTO.Source source = BankProviderRequestDTO.Source.builder()
+                .type(walletTransactionModel.getAccount().getAccountType())
+                .sourceInformation(sourceInformation)
+                .account(sourceAccount)
+                .build();
+
+        BankProviderRequestDTO.Account destinationAccount = BankProviderRequestDTO.Account.builder()
+                .accountNumber(walletTransactionModel.getDestinationAccount().getAccountNumber())
+                .currency(walletTransactionModel.getCurrency())
+                .routingNumber(walletTransactionModel.getDestinationAccount().getRoutingNumber())
+                .build();
+
+        BankProviderRequestDTO.Destination destination = BankProviderRequestDTO.Destination.builder()
+                .name(walletTransactionModel.getDestinationAccount().getName() + " " + walletTransactionModel.getDestinationAccount().getLastName() )
+                .account(destinationAccount)
+                .build();
+
+        BankProviderRequestDTO transferRequest = BankProviderRequestDTO.builder()
+                .source(source)
+                .destination(destination)
+                .amount(walletTransactionModel.getAmount())
+                .build();
+
+        return  bankTransferHttpRequest.doTransferRequest(transferRequest) ;
     }
 
     private WalletTransactionModel saveTopUp(WalletTransactionModel walletTransactionModel)

@@ -32,7 +32,7 @@ class WalletTransactionServiceTest {
         testAccount.setName("Cleber");
         testAccount.setSurName("Juca");
         testAccount.setIdentificationNumber(123456789L);
-        testAccount.setAccountNumber(123);
+        testAccount.setAccountNumber("123");
         testAccount.setBankName("Bank");
         testAccount.setCreatedAt(LocalDateTime.now());
         testAccount.setCreatedBy("test_user");

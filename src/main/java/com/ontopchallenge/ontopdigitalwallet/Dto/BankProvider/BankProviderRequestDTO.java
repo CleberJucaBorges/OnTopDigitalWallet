@@ -1,4 +1,5 @@
 package com.ontopchallenge.ontopdigitalwallet.Dto.BankProvider;
+import com.ontopchallenge.ontopdigitalwallet.Enum.AccountType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,14 +11,14 @@ import lombok.NoArgsConstructor;
 public class BankProviderRequestDTO {
     private Source source;
     private Destination destination;
-    private int amount;
+    private Double amount;
 
     @Data
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Source {
-        private SourceType type;
+        private AccountType type;
         private SourceInformation sourceInformation;
         private Account account;
     }
@@ -47,9 +48,5 @@ public class BankProviderRequestDTO {
         private String accountNumber;
         private String currency;
         private String routingNumber;
-    }
-
-    public enum SourceType {
-        COMPANY
     }
 }
