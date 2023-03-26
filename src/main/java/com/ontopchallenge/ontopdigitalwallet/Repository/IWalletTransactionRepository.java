@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @Repository
 public interface IWalletTransactionRepository extends JpaRepository<WalletTransactionModel, Long>
 {
-   Page<WalletTransactionModel> findByAccount_IdAndCreatedAtBetweenAndAmountBetween(
-               Long account_id
+   Page<WalletTransactionModel> findByUser_IdAndCreatedAtBetweenAndAmountBetween(
+               Long user_id
            ,   LocalDateTime  createdAtStart
            ,   LocalDateTime  createdAtEnd
            ,   Double amountStart

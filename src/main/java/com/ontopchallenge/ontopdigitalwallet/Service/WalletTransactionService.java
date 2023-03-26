@@ -22,17 +22,17 @@ import java.util.Optional;
 public class WalletTransactionService {
     private final IWalletTransactionRepository walletTransactionRepository;
     private final BalanceService balanceService;
-    private final AccountService accountService;
+    private final UserService userService;
     private final BankTransferHttpRequest bankTransferHttpRequest;
 
 
     public WalletTransactionService(
             IWalletTransactionRepository walletTransactionRepository
             , BalanceService balanceService,
-            AccountService accountService, BankTransferHttpRequest bankTransferHttpRequest) {
+            UserService userService, BankTransferHttpRequest bankTransferHttpRequest) {
         this.walletTransactionRepository = walletTransactionRepository;
         this.balanceService = balanceService;
-        this.accountService = accountService;
+        this.userService = userService;
         this.bankTransferHttpRequest = bankTransferHttpRequest;
     }
 
@@ -82,16 +82,16 @@ public class WalletTransactionService {
     private BankProviderResponseDTO buildTransferRequest(WalletTransactionModel walletTransactionModel)
     {
         BankProviderRequestDTO.SourceInformation sourceInformation = BankProviderRequestDTO.SourceInformation.builder()
-                .name(walletTransactionModel.getAccount().getName() + " " + walletTransactionModel.getAccount().getSurName())
+                .name(walletTransactionModel.getUser().getName() + " " + walletTransactionModel.getUser().getSurName())
                 .build();
 
         BankProviderRequestDTO.Account sourceAccount = BankProviderRequestDTO.Account.builder()
-                .accountNumber(walletTransactionModel.getAccount().getAccountNumber())
+                .accountNumber(walletTransactionModel.getUser().getAccountNumber())
                 .currency(walletTransactionModel.getCurrency())
-                .routingNumber(walletTransactionModel.getAccount().getRoutingNumber())
+                .routingNumber(walletTransactionModel.getUser().getRoutingNumber())
                 .build();
         BankProviderRequestDTO.Source source = BankProviderRequestDTO.Source.builder()
-                .type(walletTransactionModel.getAccount().getAccountType())
+                .type(walletTransactionModel.getUser().getAccountType())
                 .sourceInformation(sourceInformation)
                 .account(sourceAccount)
                 .build();
@@ -125,23 +125,23 @@ public class WalletTransactionService {
     }
 
     private String setUpCurrencyForTransaction(WalletTransactionModel walletTransactionModel){
-        return accountService.findById(walletTransactionModel.getAccount().getId()).get().getCurrency();
+        return userService.findById(walletTransactionModel.getUser().getId()).get().getCurrency();
     }
 
     private void saveBalanceOnSaveTopUp(WalletTransactionModel walletTransactionModel)
     {
-        BalanceModel balance = balanceService.findByAccountId(walletTransactionModel.getAccount().getId());
+        BalanceModel balance = balanceService.findByAccountId(walletTransactionModel.getUser().getId());
         if (balance == null)
         {
             balance = new BalanceModel();
             balance.setAmount(walletTransactionModel.getAmount());
-            balance.setAccount(walletTransactionModel.getAccount());
+            balance.setUser(walletTransactionModel.getUser());
             balance.setCreatedAt(LocalDateTime.now());
         }
         else
         {
             balance.setAmount(balance.getAmount() + walletTransactionModel.getAmount());
-            balance.setAccount(walletTransactionModel.getAccount());
+            balance.setUser(walletTransactionModel.getUser());
             balance.setUpdatedAt(LocalDateTime.now());
         }
         balance.setCreatedBy("sys_user");
@@ -174,7 +174,7 @@ public class WalletTransactionService {
     }
 
     public BalanceModel verifyBalance(WalletTransactionModel walletTransactionModel) throws BalanceNotExistException, NotEnoughBalanceException {
-        BalanceModel balance =  balanceService.findByAccountId(walletTransactionModel.getAccount().getId());
+        BalanceModel balance =  balanceService.findByAccountId(walletTransactionModel.getUser().getId());
 
         if (balance == null)
             throw new BalanceNotExistException("you have to deposit into your account first");
@@ -215,14 +215,14 @@ public class WalletTransactionService {
         return walletTransactionRepository.findById(id);
     }
     public Page<WalletTransactionModel> findByAccountId(
-                Long account_id
+                Long user_id
             ,  LocalDateTime  createdAtStart
             ,  LocalDateTime  createdAtEnd
             ,  Double amountStart
             ,  Double amountEnd
             ,  Pageable pageable){
-         return walletTransactionRepository.findByAccount_IdAndCreatedAtBetweenAndAmountBetween(
-                    account_id
+         return walletTransactionRepository.findByUser_IdAndCreatedAtBetweenAndAmountBetween(
+                    user_id
                  ,  createdAtStart
                  ,  createdAtEnd
                  ,  amountStart

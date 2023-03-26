@@ -1,5 +1,5 @@
 package com.ontopchallenge.ontopdigitalwallet.Dto.DestinationAccount;
-import com.ontopchallenge.ontopdigitalwallet.Dto.Account.AccountResponseDto;
+import com.ontopchallenge.ontopdigitalwallet.Dto.User.UserResponseDto;
 import lombok.Data;
 @Data
 public class DestinationAccountResponseDto {
@@ -10,5 +10,5 @@ public class DestinationAccountResponseDto {
     private String currency;
     private String routingNumber;
     private Long identificationNumber;
-    private AccountResponseDto account;
+    private UserResponseDto account;
 }

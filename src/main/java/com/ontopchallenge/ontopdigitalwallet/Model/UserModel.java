@@ -7,12 +7,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "account")
+@Table(name = "user")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccountModel extends BaseEntityIdentity  {
+public class UserModel extends BaseEntityIdentity  {
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
@@ -25,11 +25,11 @@ public class AccountModel extends BaseEntityIdentity  {
     private String routingNumber;
     @Column(nullable = false)
     private String bankName;
-    @JsonIgnoreProperties("account")
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<WalletTransactionModel> transactions;
-    @JsonIgnoreProperties("account")
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<DestinationAccountModel> destinationAccounts;
     @Column(nullable = false)
     private String currency;
@@ -38,7 +38,7 @@ public class AccountModel extends BaseEntityIdentity  {
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
 
-    @JsonIgnoreProperties("account")
-    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JsonIgnoreProperties("user")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     private BalanceModel balance;
 }

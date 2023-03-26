@@ -1,11 +1,11 @@
 package com.ontopchallenge.ontopdigitalwallet.Controller;
-import com.ontopchallenge.ontopdigitalwallet.Dto.Account.AccountResponseDto;
+import com.ontopchallenge.ontopdigitalwallet.Dto.User.UserResponseDto;
 import com.ontopchallenge.ontopdigitalwallet.Dto.DestinationAccount.DestinationAccountRequestDto;
 import com.ontopchallenge.ontopdigitalwallet.Dto.DestinationAccount.DestinationAccountResponseDto;
 import com.ontopchallenge.ontopdigitalwallet.Exception.InvalidAccountException;
-import com.ontopchallenge.ontopdigitalwallet.Model.AccountModel;
+import com.ontopchallenge.ontopdigitalwallet.Model.UserModel;
 import com.ontopchallenge.ontopdigitalwallet.Model.DestinationAccountModel;
-import com.ontopchallenge.ontopdigitalwallet.Service.AccountService;
+import com.ontopchallenge.ontopdigitalwallet.Service.UserService;
 import com.ontopchallenge.ontopdigitalwallet.Service.DestinationAccountService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -21,28 +21,28 @@ import java.util.Optional;
 @RequestMapping("/api/destination-account")
 public class DestinationAccountController {
     final DestinationAccountService destinationAccountService;
-    final AccountService accountService;
-    public DestinationAccountController(DestinationAccountService destinationAccountService, AccountService accountService) {
+    final UserService userService;
+    public DestinationAccountController(DestinationAccountService destinationAccountService, UserService userService) {
         this.destinationAccountService = destinationAccountService;
-        this.accountService = accountService;
+        this.userService = userService;
     }
     @PostMapping
     public ResponseEntity<Object> saveDestinationAccount(@RequestBody @Valid DestinationAccountRequestDto destinationAccountRequestDto)  {
 
         var destinationAccountModel = new DestinationAccountModel();
 
-        Optional<AccountModel> accountModelOptional = accountService.findById(destinationAccountRequestDto.getAccount_id());
+        Optional<UserModel> accountModelOptional = userService.findById(destinationAccountRequestDto.getAccount_id());
         if (accountModelOptional.isEmpty())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not found");
 
-        destinationAccountModel.setAccount(accountModelOptional.get());
+        destinationAccountModel.setUser(accountModelOptional.get());
 
         BeanUtils.copyProperties(destinationAccountRequestDto, destinationAccountModel);
         destinationAccountModel.setCreatedBy("api_user");
         var response = new DestinationAccountResponseDto();
         try {
             BeanUtils.copyProperties(destinationAccountService.save(destinationAccountModel), response);
-            var accountResponseDto = new AccountResponseDto();
+            var accountResponseDto = new UserResponseDto();
             BeanUtils.copyProperties(accountModelOptional.get(), accountResponseDto);
             response.setAccount(accountResponseDto);
 
@@ -54,7 +54,7 @@ public class DestinationAccountController {
     @GetMapping
     public ResponseEntity<Object> getAllDestinationAccounts(){
 
-        accountService.findAll();
+        userService.findAll();
         var destinationAccounts = destinationAccountService.findAll();
         List<DestinationAccountResponseDto> response = new ArrayList<>();
 
@@ -62,8 +62,8 @@ public class DestinationAccountController {
             DestinationAccountResponseDto responseDto = new DestinationAccountResponseDto();
             BeanUtils.copyProperties(destinationAccountModel, responseDto);
 
-            var accountResponseDto = new AccountResponseDto();
-            BeanUtils.copyProperties(destinationAccountModel.getAccount(), accountResponseDto);
+            var accountResponseDto = new UserResponseDto();
+            BeanUtils.copyProperties(destinationAccountModel.getUser(), accountResponseDto);
             responseDto.setAccount(accountResponseDto);
             response.add(responseDto);
         }
@@ -72,15 +72,15 @@ public class DestinationAccountController {
     @GetMapping("/{id}")
     public ResponseEntity<Object> getDestinationAccountById(@PathVariable(value = "id") long id){
 
-        accountService.findAll();
+        userService.findAll();
         Optional<DestinationAccountModel> destinationAccountResponseDtoOptional = destinationAccountService.findById(id);
         if (destinationAccountResponseDtoOptional.isEmpty())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not found");
 
         var response = new DestinationAccountResponseDto();
         BeanUtils.copyProperties(destinationAccountResponseDtoOptional.get(), response);
-        var accountResponseDto = new AccountResponseDto();
-        BeanUtils.copyProperties(destinationAccountResponseDtoOptional.get().getAccount(), accountResponseDto);
+        var accountResponseDto = new UserResponseDto();
+        BeanUtils.copyProperties(destinationAccountResponseDtoOptional.get().getUser(), accountResponseDto);
         response.setAccount(accountResponseDto);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -90,7 +90,7 @@ public class DestinationAccountController {
     public ResponseEntity<Object> updateDestinationAccount(@PathVariable(value = "id") long id,
                                                            @RequestBody @Valid DestinationAccountRequestDto destinationAccountRequestDto){
 
-        Optional<AccountModel> accountModelOptional = accountService.findById(id);
+        Optional<UserModel> accountModelOptional = userService.findById(id);
         if (accountModelOptional.isEmpty())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not found");
 
@@ -104,13 +104,13 @@ public class DestinationAccountController {
         destinationAccountModel.setId(destinationAccountModelOptional.get().getId());
         destinationAccountModel.setCreatedAt(destinationAccountModelOptional.get().getCreatedAt());
         destinationAccountModel.setCreatedBy(destinationAccountModelOptional.get().getCreatedBy());
-        destinationAccountModel.setAccount(destinationAccountModelOptional.get().getAccount());
+        destinationAccountModel.setUser(destinationAccountModelOptional.get().getUser());
         destinationAccountModel.setUpdatedBy("api_user");
 
         var response = new DestinationAccountResponseDto();
         try {
             BeanUtils.copyProperties(destinationAccountService.save(destinationAccountModel), response);
-            AccountResponseDto accountDto = new AccountResponseDto();
+            UserResponseDto accountDto = new UserResponseDto();
             BeanUtils.copyProperties( accountModelOptional.get(),accountDto);
             response.setAccount(accountDto);
 

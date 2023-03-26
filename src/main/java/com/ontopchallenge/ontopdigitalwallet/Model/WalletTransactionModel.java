@@ -17,9 +17,9 @@ import java.util.UUID;
 @AllArgsConstructor
 public class WalletTransactionModel extends BaseEntityIdentity  {
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "user_id")
     @JsonIgnoreProperties("transactions")
-    private AccountModel account;
+    private UserModel user;
     @Column(nullable = false)
     private Double amount;
     @Enumerated(EnumType.STRING)

@@ -5,10 +5,10 @@ import com.ontopchallenge.ontopdigitalwallet.Dto.Wallet.WalletTransactionStatusR
 import com.ontopchallenge.ontopdigitalwallet.Enum.TransactionType;
 import com.ontopchallenge.ontopdigitalwallet.Enum.WalletTransactionStatus;
 import com.ontopchallenge.ontopdigitalwallet.Exception.*;
-import com.ontopchallenge.ontopdigitalwallet.Model.AccountModel;
+import com.ontopchallenge.ontopdigitalwallet.Model.UserModel;
 import com.ontopchallenge.ontopdigitalwallet.Model.DestinationAccountModel;
 import com.ontopchallenge.ontopdigitalwallet.Model.WalletTransactionModel;
-import com.ontopchallenge.ontopdigitalwallet.Service.AccountService;
+import com.ontopchallenge.ontopdigitalwallet.Service.UserService;
 import com.ontopchallenge.ontopdigitalwallet.Service.DestinationAccountService;
 import com.ontopchallenge.ontopdigitalwallet.Service.WalletTransactionService;
 import org.springframework.beans.BeanUtils;
@@ -29,25 +29,25 @@ import java.util.Optional;
 @CrossOrigin(origins = "*" , maxAge = 3600)
 @RequestMapping("/api/wallet/transactions")
 public class WalletController {
-    final AccountService accountService;
+    final UserService userService;
     final WalletTransactionService walletTransactionService;
     final DestinationAccountService destinationAccountService;
-    public WalletController(AccountService accountService , WalletTransactionService walletTransactionService, DestinationAccountService destinationAccountService) {
-        this.accountService = accountService;
+    public WalletController(UserService userService, WalletTransactionService walletTransactionService, DestinationAccountService destinationAccountService) {
+        this.userService = userService;
         this.walletTransactionService = walletTransactionService;
         this.destinationAccountService = destinationAccountService;
     }
     @PostMapping
     public ResponseEntity<Object> saveWalletTransactions(@RequestBody @Valid WalletTransactionRequestDto walletRequestDto){
 
-        Optional<AccountModel> accountModelOptional = accountService.findById(walletRequestDto.getAccount_id());
+        Optional<UserModel> accountModelOptional = userService.findById(walletRequestDto.getAccount_id());
         if (accountModelOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not found");
         }
 
         var walletTransactionModel = new WalletTransactionModel();
         BeanUtils.copyProperties(walletRequestDto, walletTransactionModel);
-        walletTransactionModel.setAccount(accountModelOptional.get());
+        walletTransactionModel.setUser(accountModelOptional.get());
         walletTransactionModel.setWalletTransactionStatus(WalletTransactionStatus.Procesing);
         walletTransactionModel.setCreatedBy("api_user");
 

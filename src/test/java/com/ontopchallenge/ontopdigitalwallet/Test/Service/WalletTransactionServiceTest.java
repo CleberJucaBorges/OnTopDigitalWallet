@@ -22,12 +22,12 @@ class WalletTransactionServiceTest {
     private BalanceService balanceService;
     @Mock
     private WalletTransactionService walletTransactionService;
-    private AccountModel testAccount;
+    private UserModel testAccount;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        testAccount = new AccountModel();
+        testAccount = new UserModel();
         testAccount.setId(1);
         testAccount.setName("Cleber");
         testAccount.setSurName("Juca");
@@ -41,7 +41,7 @@ class WalletTransactionServiceTest {
     private @NotNull WalletTransactionModel getDefaultTransaction(){
         WalletTransactionModel testTransaction = new WalletTransactionModel();
         testTransaction.setId(1);
-        testTransaction.setAccount(testAccount);
+        testTransaction.setUser(testAccount);
         testTransaction.setAmount(100.0);
         testTransaction.setCreatedAt(LocalDateTime.now());
         testTransaction.setCreatedBy("test_user");
@@ -56,11 +56,11 @@ class WalletTransactionServiceTest {
 
         BalanceModel balanceExpected = new BalanceModel();
         balanceExpected.setId(1);
-        balanceExpected.setAccount(testAccount);
+        balanceExpected.setUser(testAccount);
         balanceExpected.setAmount(100.00);
         balanceExpected.setCreatedAt(LocalDateTime.now());
         balanceExpected.setCreatedBy("test_user");
-        balanceExpected.setAccount(testAccount);
+        balanceExpected.setUser(testAccount);
 
         when(walletTransactionRepository.save(testTransaction)).thenReturn(testTransaction);
         when(balanceService.save(balanceExpected)).thenReturn(balanceExpected);
@@ -80,7 +80,7 @@ class WalletTransactionServiceTest {
     void saveTopUp_shouldSaveTopUpTransactionAndUpdateBalance() {
         WalletTransactionModel testTransaction = new WalletTransactionModel();
         testTransaction.setId(1);
-        testTransaction.setAccount(testAccount);
+        testTransaction.setUser(testAccount);
         testTransaction.setAmount(100.0);
         testTransaction.setWalletTransactionStatus(WalletTransactionStatus.Completed);
         testTransaction.setTransactionType(TransactionType.TOPUP);

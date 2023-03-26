@@ -28,9 +28,9 @@ public class DestinationAccountModel extends BaseEntityIdentity {
     @Column(nullable = false)
     private Long identificationNumber;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "user_id")
     @JsonIgnoreProperties("destinationAccounts")
-    private AccountModel account;
+    private UserModel user;
     @OneToMany(mappedBy = "destinationAccount", fetch = FetchType.LAZY)
     @JsonIgnoreProperties("destinationAccount")
     private List<WalletTransactionModel> walletTransactions;

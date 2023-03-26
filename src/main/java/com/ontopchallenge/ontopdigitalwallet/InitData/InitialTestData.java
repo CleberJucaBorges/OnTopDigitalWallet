@@ -1,9 +1,9 @@
 package com.ontopchallenge.ontopdigitalwallet.InitData;
 import com.ontopchallenge.ontopdigitalwallet.Enum.AccountType;
 import com.ontopchallenge.ontopdigitalwallet.Exception.InvalidAccountException;
-import com.ontopchallenge.ontopdigitalwallet.Model.AccountModel;
+import com.ontopchallenge.ontopdigitalwallet.Model.UserModel;
 import com.ontopchallenge.ontopdigitalwallet.Model.DestinationAccountModel;
-import com.ontopchallenge.ontopdigitalwallet.Service.AccountService;
+import com.ontopchallenge.ontopdigitalwallet.Service.UserService;
 import com.ontopchallenge.ontopdigitalwallet.Service.DestinationAccountService;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
@@ -11,10 +11,10 @@ import javax.annotation.PostConstruct;
 
 @Component
 public class InitialTestData {
-    private final AccountService accountService;
+    private final UserService userService;
     private final DestinationAccountService destinationAccountService;
-    public InitialTestData(AccountService accountService, DestinationAccountService destinationAccountService) {
-        this.accountService = accountService;
+    public InitialTestData(UserService userService, DestinationAccountService destinationAccountService) {
+        this.userService = userService;
         this.destinationAccountService = destinationAccountService;
     }
     @SneakyThrows
@@ -24,9 +24,9 @@ public class InitialTestData {
         loadDestinationAccount();
     }
     private void loadAccount(){
-        if (!accountService.existsById(1L))
+        if (!userService.existsById(1L))
         {
-            AccountModel account = new AccountModel();
+            UserModel account = new UserModel();
             account.setName("ONTOP");
             account.setSurName("INC");
             account.setIdentificationNumber(123456789L);
@@ -36,7 +36,7 @@ public class InitialTestData {
             account.setCurrency("USD");
             account.setCreatedBy("test_user");
             account.setAccountType(AccountType.COMPANY);
-            accountService.save(account);
+            userService.save(account);
         }
     }
 
@@ -51,7 +51,7 @@ public class InitialTestData {
             account.setCurrency("USD");
             account.setRoutingNumber("211927207");
             account.setIdentificationNumber(987654321L);
-            account.setAccount(accountService.findById(1).get());
+            account.setUser(userService.findById(1).get());
             account.setCreatedBy("test_user");
             destinationAccountService.save(account);
         }

@@ -1,8 +1,8 @@
-package com.ontopchallenge.ontopdigitalwallet.Dto.Account;
+package com.ontopchallenge.ontopdigitalwallet.Dto.User;
 import com.ontopchallenge.ontopdigitalwallet.Enum.AccountType;
 import lombok.Data;
 @Data
-public class AccountResponseDto {
+public class UserResponseDto {
     private long id;
     private String name;
     private String surName;

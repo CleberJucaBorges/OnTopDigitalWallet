@@ -20,7 +20,7 @@ public class DestinationAccountService {
     @Transactional
     public DestinationAccountModel save(DestinationAccountModel destinationAccountModel) throws InvalidAccountException {
 
-        if (destinationAccountModel.getAccount() == null)
+        if (destinationAccountModel.getUser() == null)
             throw new InvalidAccountException("invalid account");
 
         if (destinationAccountModel.getId() == 0){

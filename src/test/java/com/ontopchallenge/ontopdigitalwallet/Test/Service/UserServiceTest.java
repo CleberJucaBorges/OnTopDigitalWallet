@@ -10,16 +10,16 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import com.ontopchallenge.ontopdigitalwallet.Model.AccountModel;
-import com.ontopchallenge.ontopdigitalwallet.Repository.IAccountRepository;
-import com.ontopchallenge.ontopdigitalwallet.Service.AccountService;
+import com.ontopchallenge.ontopdigitalwallet.Model.UserModel;
+import com.ontopchallenge.ontopdigitalwallet.Repository.IUserRepository;
+import com.ontopchallenge.ontopdigitalwallet.Service.UserService;
 
-public class AccountServiceTest {
+public class UserServiceTest {
     @InjectMocks
-    private AccountService accountService;
+    private UserService userService;
 
     @Mock
-    private IAccountRepository accountRepository;
+    private IUserRepository accountRepository;
 
     @BeforeEach
     public void setUp() {
@@ -28,7 +28,7 @@ public class AccountServiceTest {
 
     @Test
     public void testSaveAccount() {
-        AccountModel account = new AccountModel();
+        UserModel account = new UserModel();
         account.setName("Cleber");
         account.setSurName("Juca");
         account.setIdentificationNumber(123456789L);
@@ -38,7 +38,7 @@ public class AccountServiceTest {
         LocalDateTime now = LocalDateTime.now();
         when(accountRepository.save(account)).thenReturn(account);
 
-        AccountModel savedAccount = accountService.save(account);
+        UserModel savedAccount = userService.save(account);
 
         verify(accountRepository).save(account);
 
@@ -55,12 +55,12 @@ public class AccountServiceTest {
 
     @Test
     public void testFindAllAccounts() {
-        List<AccountModel> accounts = new ArrayList<>();
-        accounts.add(new AccountModel());
-        accounts.add(new AccountModel());
+        List<UserModel> accounts = new ArrayList<>();
+        accounts.add(new UserModel());
+        accounts.add(new UserModel());
         when(accountRepository.findAll()).thenReturn(accounts);
 
-        List<AccountModel> retrievedAccounts = accountService.findAll();
+        List<UserModel> retrievedAccounts = userService.findAll();
 
         verify(accountRepository).findAll();
 
@@ -70,7 +70,7 @@ public class AccountServiceTest {
     @Test
     public void testFindAccountById() {
         long id = 1L;
-        AccountModel account = new AccountModel();
+        UserModel account = new UserModel();
         account.setId(id);
         account.setName("Cleber");
         account.setSurName("Juca");
@@ -79,7 +79,7 @@ public class AccountServiceTest {
         account.setBankName("Bank");
         when(accountRepository.findById(id)).thenReturn(Optional.of(account));
 
-        Optional<AccountModel> retrievedAccount = accountService.findById(id);
+        Optional<UserModel> retrievedAccount = userService.findById(id);
 
         verify(accountRepository).findById(id);
 
@@ -94,7 +94,7 @@ public class AccountServiceTest {
 
     @Test
     public void testDeleteAccount() {
-        AccountModel account = new AccountModel();
+        UserModel account = new UserModel();
         account.setId(1L);
         account.setName("Cleber");
         account.setSurName("Juca");
@@ -102,7 +102,7 @@ public class AccountServiceTest {
         account.setAccountNumber("1221");
         account.setBankName("Bank");
 
-        accountService.delete(account);
+        userService.delete(account);
 
         verify(accountRepository).delete(account);
     }

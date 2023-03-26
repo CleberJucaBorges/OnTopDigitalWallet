@@ -14,6 +14,6 @@ public class BalanceModel extends BaseEntityIdentity {
     private Double amount;
     @JsonIgnoreProperties("balance")
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
-    private AccountModel account;
+    @JoinColumn(name = "user_id")
+    private UserModel user;
 }

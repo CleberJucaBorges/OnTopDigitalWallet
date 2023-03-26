@@ -1,4 +1,4 @@
-package com.ontopchallenge.ontopdigitalwallet.Dto.Account;
+package com.ontopchallenge.ontopdigitalwallet.Dto.User;
 import com.ontopchallenge.ontopdigitalwallet.Enum.AccountType;
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class AccountRequestDto {
+public class UserRequestDto {
     @NotBlank(message = "the field name is mandatory")
     private String name;
     @NotBlank(message = "the field surname is mandatory")
