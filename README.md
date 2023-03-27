@@ -34,12 +34,10 @@ After registering the accounts, to perform WITHDRAW or TRANSFER transactions, it
 
 Examples of how to perform each type of transaction can be found in the Postman collection present in the same GitHub repository as the project.
 
-
-
 ## Swagger
 To access the Swagger documentation, open your web browser and go to:
 
-```link
+```
 http://localhost:8099/swagger-ui/index.html
 ```
 Note: If port 8099 is already in use on your machine, you can change it by editing the application.properties file and setting the server.port property to a different value.
