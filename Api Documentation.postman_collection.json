@@ -1,0 +1,2655 @@
+{
+	"info": {
+		"_postman_id": "9215d38d-ddfe-4e7a-a363-dfd7899e9f54",
+		"name": "Api Documentation",
+		"description": "Api Documentation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14239435"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "destination-account",
+					"item": [
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "getDestinationAccountById",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:8099/api/destination-account/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8099",
+											"path": [
+												"api",
+												"destination-account",
+												"1"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/destination-account/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"destination-account",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/destination-account/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"destination-account",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/destination-account/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"destination-account",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Not Found",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/destination-account/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"destination-account",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								},
+								{
+									"name": "updateDestinationAccount",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountNumber\": \"in adipisicing consectetur amet\",\n  \"account_id\": -52764847,\n  \"bankName\": \"tempor in ipsum deserunt cup\",\n  \"currency\": \"sit adipisicing amet et cillum\",\n  \"identificationNumber\": \"pariatur\",\n  \"lastName\": \"dolor Excepteur\",\n  \"name\": \"in quis esse dolore\",\n  \"routingNumber\": \"dolore fugiat veniam irure\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8099/api/destination-account/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8099",
+											"path": [
+												"api",
+												"destination-account",
+												"1"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/destination-account/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"destination-account",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Created",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/destination-account/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"destination-account",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/destination-account/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"destination-account",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/destination-account/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"destination-account",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Not Found",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/destination-account/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"destination-account",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "getAllDestinationAccounts",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8099/api/destination-account",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8099",
+									"path": [
+										"api",
+										"destination-account"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/destination-account",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"destination-account"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{}"
+								},
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/destination-account",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"destination-account"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Forbidden",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/destination-account",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"destination-account"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/destination-account",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"destination-account"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "saveDestinationAccount",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountNumber\": \"in adipisicing consectetur amet\",\n  \"account_id\": -52764847,\n  \"bankName\": \"tempor in ipsum deserunt cup\",\n  \"currency\": \"sit adipisicing amet et cillum\",\n  \"identificationNumber\": \"pariatur\",\n  \"lastName\": \"dolor Excepteur\",\n  \"name\": \"in quis esse dolore\",\n  \"routingNumber\": \"dolore fugiat veniam irure\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/destination-account",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"destination-account"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/destination-account",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"destination-account"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{}"
+								},
+								{
+									"name": "Created",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/destination-account",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"destination-account"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/destination-account",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"destination-account"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Forbidden",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/destination-account",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"destination-account"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/destination-account",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"destination-account"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "wallet/transactions",
+					"item": [
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "getWalletTransactionById",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:8099/api/wallet/transactions/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8099",
+											"path": [
+												"api",
+												"wallet",
+												"transactions",
+												"1"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/wallet/transactions/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"wallet",
+														"transactions",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/wallet/transactions/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"wallet",
+														"transactions",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/wallet/transactions/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"wallet",
+														"transactions",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Not Found",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/wallet/transactions/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"wallet",
+														"transactions",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								},
+								{
+									"name": "updateWalletTransactionStatusCallBack",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"walletTransactionStatus\": \"Procesing\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions/:id/callback",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions",
+												":id",
+												"callback"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "16507494",
+													"description": "(Required) id"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"walletTransactionStatus\": \"Procesing\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/wallet/transactions/:id/callback",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"wallet",
+														"transactions",
+														":id",
+														"callback"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Created",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"walletTransactionStatus\": \"Procesing\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/wallet/transactions/:id/callback",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"wallet",
+														"transactions",
+														":id",
+														"callback"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"walletTransactionStatus\": \"Procesing\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/wallet/transactions/:id/callback",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"wallet",
+														"transactions",
+														":id",
+														"callback"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"walletTransactionStatus\": \"Procesing\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/wallet/transactions/:id/callback",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"wallet",
+														"transactions",
+														":id",
+														"callback"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Not Found",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"walletTransactionStatus\": \"Procesing\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/wallet/transactions/:id/callback",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"wallet",
+														"transactions",
+														":id",
+														"callback"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "getAllWalletTransaction",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/wallet/transactions",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"wallet",
+										"transactions"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{}"
+								},
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Forbidden",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "saveWalletTransactions",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"account_id\": 1,\n  \"amount\": 1,\n  \"transactionType\": \"TOPUP\",\n  \"destination_account_id\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8099/api/wallet/transactions",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8099",
+									"path": [
+										"api",
+										"wallet",
+										"transactions"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"account_id\": 99946571,\n  \"amount\": -88126555.328533,\n  \"transactionType\": \"TOPUP\",\n  \"destination_account_id\": 53501044\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{}"
+								},
+								{
+									"name": "Created",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"account_id\": 99946571,\n  \"amount\": -88126555.328533,\n  \"transactionType\": \"TOPUP\",\n  \"destination_account_id\": 53501044\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"account_id\": 99946571,\n  \"amount\": -88126555.328533,\n  \"transactionType\": \"TOPUP\",\n  \"destination_account_id\": 53501044\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Forbidden",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"account_id\": 99946571,\n  \"amount\": -88126555.328533,\n  \"transactionType\": \"TOPUP\",\n  \"destination_account_id\": 53501044\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"account_id\": 99946571,\n  \"amount\": -88126555.328533,\n  \"transactionType\": \"TOPUP\",\n  \"destination_account_id\": 53501044\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "getWalletTransactionsByAccountId",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8099/api/wallet/transactions/account/1?amountEnd=100&amountStart=1&createdAtEnd=2023-11-04T22:22:02&createdAtStart=1986-11-04T22:22:02&page=0&page_size=2&sort_by=createdAt&sort_dir=desc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8099",
+									"path": [
+										"api",
+										"wallet",
+										"transactions",
+										"account",
+										"1"
+									],
+									"query": [
+										{
+											"key": "amountEnd",
+											"value": "100",
+											"description": "(Required) amountEnd"
+										},
+										{
+											"key": "amountStart",
+											"value": "1",
+											"description": "(Required) amountStart"
+										},
+										{
+											"key": "createdAtEnd",
+											"value": "2023-11-04T22:22:02",
+											"description": "(Required) createdAtEnd"
+										},
+										{
+											"key": "createdAtStart",
+											"value": "1986-11-04T22:22:02",
+											"description": "(Required) createdAtSta"
+										},
+										{
+											"key": "page",
+											"value": "0",
+											"description": "page"
+										},
+										{
+											"key": "page_size",
+											"value": "2",
+											"description": "page_size"
+										},
+										{
+											"key": "sort_by",
+											"value": "createdAt",
+											"description": "sort_by"
+										},
+										{
+											"key": "sort_dir",
+											"value": "desc",
+											"description": "sort_dir"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions/account/:account_id?amountEnd=-7484811.958309963&amountStart=-7484811.958309963&createdAtEnd=1986-11-04T22:22:02.435Z&createdAtStart=1986-11-04T22:22:02.435Z&page=0&page_size=2&sort_by=createdAt&sort_dir=desc",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions",
+												"account",
+												":account_id"
+											],
+											"query": [
+												{
+													"key": "amountEnd",
+													"value": "-7484811.958309963"
+												},
+												{
+													"key": "amountStart",
+													"value": "-7484811.958309963"
+												},
+												{
+													"key": "createdAtEnd",
+													"value": "1986-11-04T22:22:02.435Z"
+												},
+												{
+													"key": "createdAtStart",
+													"value": "1986-11-04T22:22:02.435Z"
+												},
+												{
+													"key": "page",
+													"value": "0"
+												},
+												{
+													"key": "page_size",
+													"value": "2"
+												},
+												{
+													"key": "sort_by",
+													"value": "createdAt"
+												},
+												{
+													"key": "sort_dir",
+													"value": "desc"
+												}
+											],
+											"variable": [
+												{
+													"key": "account_id",
+													"value": "16507494",
+													"description": "(Required) account_id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"content\": [\n    {\n      \"amount\": -25179947.849615842,\n      \"createdAt\": \"2008-04-16T17:49:29.968Z\",\n      \"createdBy\": \"sed in\",\n      \"currency\": \"magna fugiat\",\n      \"destinationAccount\": {\n        \"accountNumber\": \"commodo est exercitation\",\n        \"createdAt\": \"1945-08-17T14:51:09.532Z\",\n        \"createdBy\": \"dolor irure\",\n        \"currency\": \"id eu\",\n        \"id\": -36239675,\n        \"identificationNumber\": 93928376,\n        \"lastName\": \"laboris commodo sit velit\",\n        \"name\": \"sint in eiusmod voluptate\",\n        \"routingNumber\": \"u\",\n        \"updatedAt\": \"1959-05-21T15:08:34.335Z\",\n        \"updatedBy\": \"fugiat\",\n        \"user\": {\n          \"accountNumber\": \"aliqua dolore deserunt\",\n          \"accountType\": \"COMPANY\",\n          \"balance\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"bankName\": \"fugiat\",\n          \"createdAt\": \"1993-06-21T06:01:05.828Z\",\n          \"createdBy\": \"consequat irure\",\n          \"currency\": \"anim id cillum labore\",\n          \"destinationAccounts\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"id\": 53720568,\n          \"identificationNumber\": -54375315,\n          \"name\": \"in sint officia aliquip nostrud\",\n          \"routingNumber\": \"laboris Ut id ut\",\n          \"surName\": \"ipsum nisi\",\n          \"transactions\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"updatedAt\": \"1956-05-10T16:41:32.651Z\",\n          \"updatedBy\": \"esse\"\n        },\n        \"walletTransactions\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/WalletTransactionModel detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/WalletTransactionModel detected>\"\n          }\n        ]\n      },\n      \"external_id\": \"urn:uuid:149ebe47-7d6c-4680-0726-8559e2e4df4a\",\n      \"feeAmount\": -35606745.84821886,\n      \"id\": -19154033,\n      \"transactionType\": \"TOPUP\",\n      \"updatedAt\": \"2009-11-09T09:30:17.473Z\",\n      \"updatedBy\": \"est anim u\",\n      \"user\": {\n        \"accountNumber\": \"irure\",\n        \"accountType\": \"NATURAL_PERSON\",\n        \"balance\": {\n          \"amount\": -32521635.71993272,\n          \"createdAt\": \"2010-10-23T19:23:00.796Z\",\n          \"createdBy\": \"Lorem\",\n          \"id\": -55314770,\n          \"updatedAt\": \"1967-04-24T10:29:40.359Z\",\n          \"updatedBy\": \"elit qui dolor labore in\",\n          \"user\": {\n            \"value\": \"<Circular reference to #/components/schemas/UserModel detected>\"\n          }\n        },\n        \"bankName\": \"do veniam velit in\",\n        \"createdAt\": \"1968-08-25T14:30:36.331Z\",\n        \"createdBy\": \"incididunt Ut nulla\",\n        \"currency\": \"do eu\",\n        \"destinationAccounts\": [\n          {\n            \"accountNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdBy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identificationNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lastName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"routingNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedBy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"user\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"walletTransactions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"accountNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdBy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identificationNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lastName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"routingNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedBy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"user\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"walletTransactions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"id\": 54102057,\n        \"identificationNumber\": 71232117,\n        \"name\": \"laborum occaecat ut\",\n        \"routingNumber\": \"amet d\",\n        \"surName\": \"eiusmod reprehenderit quis\",\n        \"transactions\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/WalletTransactionModel detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/WalletTransactionModel detected>\"\n          }\n        ],\n        \"updatedAt\": \"1971-04-11T22:00:16.940Z\",\n        \"updatedBy\": \"sunt anim reprehenderit ad\"\n      },\n      \"walletTransactionStatus\": \"Completed\"\n    },\n    {\n      \"amount\": -31393933.20439665,\n      \"createdAt\": \"1975-04-26T10:28:31.960Z\",\n      \"createdBy\": \"id consectetur elit nostrud\",\n      \"currency\": \"commodo veniam Ut nisi\",\n      \"destinationAccount\": {\n        \"accountNumber\": \"sed culpa exercitat\",\n        \"createdAt\": \"2000-08-19T23:48:13.610Z\",\n        \"createdBy\": \"elit minim sit occaecat\",\n        \"currency\": \"Ut in\",\n        \"id\": -48768864,\n        \"identificationNumber\": 47207626,\n        \"lastName\": \"anim labore dolor\",\n        \"name\": \"pariatur veniam anim occaecat\",\n        \"routingNumber\": \"v\",\n        \"updatedAt\": \"1963-01-24T06:14:40.832Z\",\n        \"updatedBy\": \"mollit\",\n        \"user\": {\n          \"accountNumber\": \"cillum\",\n          \"accountType\": \"NATURAL_PERSON\",\n          \"balance\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"bankName\": \"fugiat ut proident velit\",\n          \"createdAt\": \"2016-02-17T09:53:04.283Z\",\n          \"createdBy\": \"enim cillum nisi amet\",\n          \"currency\": \"adipisicing ut exercitation non\",\n          \"destinationAccounts\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"id\": -70011161,\n          \"identificationNumber\": -10294470,\n          \"name\": \"sunt pariatur exercitation\",\n          \"routingNumber\": \"commodo Duis\",\n          \"surName\": \"adipisicing cupidatat\",\n          \"transactions\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"updatedAt\": \"1982-07-30T04:42:10.431Z\",\n          \"updatedBy\": \"aliqua aliquip esse nisi\"\n        },\n        \"walletTransactions\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/WalletTransactionModel detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/WalletTransactionModel detected>\"\n          }\n        ]\n      },\n      \"external_id\": \"c8f0ee1c-7d3d-0238-e94d-bbd8fa118bc0\",\n      \"feeAmount\": 46180701.8207148,\n      \"id\": 84644464,\n      \"transactionType\": \"TOPUP\",\n      \"updatedAt\": \"1950-06-29T11:50:42.272Z\",\n      \"updatedBy\": \"reprehenderit pariatur adipisicing\",\n      \"user\": {\n        \"accountNumber\": \"reprehenderit minim\",\n        \"accountType\": \"NATURAL_PERSON\",\n        \"balance\": {\n          \"amount\": 60609008.06760147,\n          \"createdAt\": \"1978-04-14T10:36:58.880Z\",\n          \"createdBy\": \"nisi aute\",\n          \"id\": 46953312,\n          \"updatedAt\": \"1992-10-12T12:43:09.875Z\",\n          \"updatedBy\": \"Lorem incididunt\",\n          \"user\": {\n            \"value\": \"<Circular reference to #/components/schemas/UserModel detected>\"\n          }\n        },\n        \"bankName\": \"in\",\n        \"createdAt\": \"1998-02-28T02:11:28.357Z\",\n        \"createdBy\": \"est laborum\",\n        \"currency\": \"quis ut anim\",\n        \"destinationAccounts\": [\n          {\n            \"accountNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdBy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identificationNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lastName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"routingNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedBy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"user\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"walletTransactions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"accountNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdBy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identificationNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lastName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"routingNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedBy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"user\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"walletTransactions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"id\": -12768206,\n        \"identificationNumber\": 18895502,\n        \"name\": \"enim laboris do elit\",\n        \"routingNumber\": \"nostrud\",\n        \"surName\": \"et nisi laborum in\",\n        \"transactions\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/WalletTransactionModel detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/WalletTransactionModel detected>\"\n          }\n        ],\n        \"updatedAt\": \"1946-06-10T07:31:58.133Z\",\n        \"updatedBy\": \"culpa cupidatat est\"\n      },\n      \"walletTransactionStatus\": \"Failed\"\n    }\n  ],\n  \"empty\": false,\n  \"first\": false,\n  \"last\": true,\n  \"number\": -16394451,\n  \"numberOfElements\": -41631903,\n  \"pageable\": {\n    \"offset\": -37154362,\n    \"pageNumber\": -74023762,\n    \"pageSize\": 86717297,\n    \"paged\": false,\n    \"sort\": {\n      \"empty\": false,\n      \"sorted\": false,\n      \"unsorted\": false\n    },\n    \"unpaged\": true\n  },\n  \"size\": 64646161,\n  \"sort\": {\n    \"empty\": false,\n    \"sorted\": true,\n    \"unsorted\": true\n  },\n  \"totalElements\": 25057614,\n  \"totalPages\": 79774196\n}"
+								},
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions/account/:account_id?amountEnd=-7484811.958309963&amountStart=-7484811.958309963&createdAtEnd=1986-11-04T22:22:02.435Z&createdAtStart=1986-11-04T22:22:02.435Z&page=0&page_size=2&sort_by=createdAt&sort_dir=desc",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions",
+												"account",
+												":account_id"
+											],
+											"query": [
+												{
+													"key": "amountEnd",
+													"value": "-7484811.958309963"
+												},
+												{
+													"key": "amountStart",
+													"value": "-7484811.958309963"
+												},
+												{
+													"key": "createdAtEnd",
+													"value": "1986-11-04T22:22:02.435Z"
+												},
+												{
+													"key": "createdAtStart",
+													"value": "1986-11-04T22:22:02.435Z"
+												},
+												{
+													"key": "page",
+													"value": "0"
+												},
+												{
+													"key": "page_size",
+													"value": "2"
+												},
+												{
+													"key": "sort_by",
+													"value": "createdAt"
+												},
+												{
+													"key": "sort_dir",
+													"value": "desc"
+												}
+											],
+											"variable": [
+												{
+													"key": "account_id",
+													"value": "16507494",
+													"description": "(Required) account_id"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Forbidden",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions/account/:account_id?amountEnd=-7484811.958309963&amountStart=-7484811.958309963&createdAtEnd=1986-11-04T22:22:02.435Z&createdAtStart=1986-11-04T22:22:02.435Z&page=0&page_size=2&sort_by=createdAt&sort_dir=desc",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions",
+												"account",
+												":account_id"
+											],
+											"query": [
+												{
+													"key": "amountEnd",
+													"value": "-7484811.958309963"
+												},
+												{
+													"key": "amountStart",
+													"value": "-7484811.958309963"
+												},
+												{
+													"key": "createdAtEnd",
+													"value": "1986-11-04T22:22:02.435Z"
+												},
+												{
+													"key": "createdAtStart",
+													"value": "1986-11-04T22:22:02.435Z"
+												},
+												{
+													"key": "page",
+													"value": "0"
+												},
+												{
+													"key": "page_size",
+													"value": "2"
+												},
+												{
+													"key": "sort_by",
+													"value": "createdAt"
+												},
+												{
+													"key": "sort_dir",
+													"value": "desc"
+												}
+											],
+											"variable": [
+												{
+													"key": "account_id",
+													"value": "16507494",
+													"description": "(Required) account_id"
+												}
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions/account/:account_id?amountEnd=-7484811.958309963&amountStart=-7484811.958309963&createdAtEnd=1986-11-04T22:22:02.435Z&createdAtStart=1986-11-04T22:22:02.435Z&page=0&page_size=2&sort_by=createdAt&sort_dir=desc",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions",
+												"account",
+												":account_id"
+											],
+											"query": [
+												{
+													"key": "amountEnd",
+													"value": "-7484811.958309963"
+												},
+												{
+													"key": "amountStart",
+													"value": "-7484811.958309963"
+												},
+												{
+													"key": "createdAtEnd",
+													"value": "1986-11-04T22:22:02.435Z"
+												},
+												{
+													"key": "createdAtStart",
+													"value": "1986-11-04T22:22:02.435Z"
+												},
+												{
+													"key": "page",
+													"value": "0"
+												},
+												{
+													"key": "page_size",
+													"value": "2"
+												},
+												{
+													"key": "sort_by",
+													"value": "createdAt"
+												},
+												{
+													"key": "sort_dir",
+													"value": "desc"
+												}
+											],
+											"variable": [
+												{
+													"key": "account_id",
+													"value": "16507494",
+													"description": "(Required) account_id"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "getUserById",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:8099/api/user/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8099",
+											"path": [
+												"api",
+												"user",
+												"1"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/user/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"user",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/user/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"user",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/user/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"user",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Not Found",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/user/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"user",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								},
+								{
+									"name": "updateUser",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountNumber\": \"esse consectetur\",\n  \"accountType\": \"COMPANY\",\n  \"bankName\": \"fugiat\",\n  \"currency\": \"nulla aliqua sint qui\",\n  \"identificationNumber\": 48580648,\n  \"name\": \"consequat dolore dolore sit\",\n  \"routingNumber\": \"amet non\",\n  \"surName\": \"eiusmod amet\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8099/api/user/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8099",
+											"path": [
+												"api",
+												"user",
+												"1"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/user/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"user",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Created",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/user/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"user",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/user/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"user",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/user/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"user",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Not Found",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/user/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"user",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "16507494",
+															"description": "(Required) id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "getAllUsers",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8099/api/user",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8099",
+									"path": [
+										"api",
+										"user"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/user",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"user"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{}"
+								},
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/user",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"user"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Forbidden",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/user",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"user"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/user",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"user"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "saveUser",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountNumber\": \"esse consectetur\",\n  \"accountType\": \"COMPANY\",\n  \"bankName\": \"fugiat\",\n  \"currency\": \"nulla aliqua sint qui\",\n  \"identificationNumber\": 48580648,\n  \"name\": \"consequat dolore dolore sit\",\n  \"routingNumber\": \"amet non\",\n  \"surName\": \"eiusmod amet\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8099/api/user",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8099",
+									"path": [
+										"api",
+										"user"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/user",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"user"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{}"
+								},
+								{
+									"name": "Created",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/user",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"user"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/user",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"user"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Forbidden",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/user",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"user"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/user",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"user"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "//localhost:8099",
+			"type": "string"
+		}
+	]
+}
