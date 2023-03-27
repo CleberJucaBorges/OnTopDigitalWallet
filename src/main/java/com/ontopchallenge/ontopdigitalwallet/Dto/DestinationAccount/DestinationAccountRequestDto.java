@@ -20,6 +20,6 @@ public class DestinationAccountRequestDto {
     private String routingNumber;
     @NotBlank(message = "the field currency is mandatory")
     private String currency;
-    @NotNull(message = "the field account_id is mandatory")
-    private Long account_id;
+    @NotNull(message = "the field user_id is mandatory")
+    private Long user_id;
 }

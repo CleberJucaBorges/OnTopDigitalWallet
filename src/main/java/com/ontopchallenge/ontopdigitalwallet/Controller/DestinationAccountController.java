@@ -31,7 +31,7 @@ public class DestinationAccountController {
 
         var destinationAccountModel = new DestinationAccountModel();
 
-        Optional<UserModel> accountModelOptional = userService.findById(destinationAccountRequestDto.getAccount_id());
+        Optional<UserModel> accountModelOptional = userService.findById(destinationAccountRequestDto.getUser_id());
         if (accountModelOptional.isEmpty())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not found");
 

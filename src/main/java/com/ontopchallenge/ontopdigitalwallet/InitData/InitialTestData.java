@@ -50,7 +50,7 @@ public class InitialTestData {
             account.setAccountNumber("1885226711");
             account.setCurrency("USD");
             account.setRoutingNumber("211927207");
-            account.setIdentificationNumber(987654321L);
+            account.setIdentificationNumber("987654321");
             account.setUser(userService.findById(1).get());
             account.setCreatedBy("test_user");
             destinationAccountService.save(account);

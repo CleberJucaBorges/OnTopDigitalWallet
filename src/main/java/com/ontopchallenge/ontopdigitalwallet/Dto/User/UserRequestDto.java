@@ -24,7 +24,7 @@ public class UserRequestDto {
     @NotBlank(message = "the field currency is mandatory")
     private String currency;
     @Enumerated(EnumType.STRING)
-    @NotBlank(message = "the field account type is mandatory")
+    @NotNull(message = "the field account type is mandatory")
     private AccountType accountType;
 
 }

@@ -26,7 +26,7 @@ public class DestinationAccountModel extends BaseEntityIdentity {
     @Column(nullable = false)
     private String routingNumber;
     @Column(nullable = false)
-    private Long identificationNumber;
+    private String identificationNumber;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties("destinationAccounts")
