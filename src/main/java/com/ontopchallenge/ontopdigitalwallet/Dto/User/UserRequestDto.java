@@ -13,8 +13,8 @@ public class UserRequestDto {
     private String name;
     @NotBlank(message = "the field surname is mandatory")
     private String surName;
-    @NotNull(message = "the field identification number is mandatory")
-    private Long identificationNumber;
+    @NotBlank(message = "the field identification number is mandatory")
+    private String identificationNumber;
     @NotBlank(message = "the field account number is mandatory")
     private String accountNumber;
     @NotBlank(message = "the field routing number is mandatory")

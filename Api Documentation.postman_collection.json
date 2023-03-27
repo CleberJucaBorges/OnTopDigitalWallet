@@ -203,7 +203,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"accountNumber\": \"in adipisicing consectetur amet\",\n  \"account_id\": -52764847,\n  \"bankName\": \"tempor in ipsum deserunt cup\",\n  \"currency\": \"sit adipisicing amet et cillum\",\n  \"identificationNumber\": \"pariatur\",\n  \"lastName\": \"dolor Excepteur\",\n  \"name\": \"in quis esse dolore\",\n  \"routingNumber\": \"dolore fugiat veniam irure\"\n}",
+											"raw": "{\n  \"name\": \"TONY\",\n  \"lastName\": \"STARK\",\n  \"accountNumber\": \"1885226711\",\n  \"currency\": \"USD\",\n  \"routingNumber\": \"211927207\",\n  \"identificationNumber\": \"987654321\",\n  \"user_id\": 1\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -563,7 +563,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"accountNumber\": \"in adipisicing consectetur amet\",\n  \"account_id\": -52764847,\n  \"bankName\": \"tempor in ipsum deserunt cup\",\n  \"currency\": \"sit adipisicing amet et cillum\",\n  \"identificationNumber\": \"pariatur\",\n  \"lastName\": \"dolor Excepteur\",\n  \"name\": \"in quis esse dolore\",\n  \"routingNumber\": \"dolore fugiat veniam irure\"\n}",
+									"raw": "{\n  \"name\": \"TONY\",\n  \"lastName\": \"STARK\",\n  \"accountNumber\": \"1885226711\",\n  \"currency\": \"USD\",\n  \"routingNumber\": \"211927207\",\n  \"identificationNumber\": \"987654321\",\n  \"user_id\": 1\n}\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -571,10 +571,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/destination-account",
+									"raw": "http://localhost:8099/api/destination-account",
+									"protocol": "http",
 									"host": [
-										"{{baseUrl}}"
+										"localhost"
 									],
+									"port": "8099",
 									"path": [
 										"api",
 										"destination-account"
@@ -932,23 +934,18 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/api/wallet/transactions/:id/callback",
+											"raw": "http://localhost:8099/api/wallet/transactions/1/callback",
+											"protocol": "http",
 											"host": [
-												"{{baseUrl}}"
+												"localhost"
 											],
+											"port": "8099",
 											"path": [
 												"api",
 												"wallet",
 												"transactions",
-												":id",
+												"1",
 												"callback"
-											],
-											"variable": [
-												{
-													"key": "id",
-													"value": "16507494",
-													"description": "(Required) id"
-												}
 											]
 										}
 									},
@@ -1203,10 +1200,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/api/wallet/transactions",
+									"raw": "http://localhost:8099/api/wallet/transactions",
+									"protocol": "http",
 									"host": [
-										"{{baseUrl}}"
+										"localhost"
 									],
+									"port": "8099",
 									"path": [
 										"api",
 										"wallet",
@@ -1334,7 +1333,7 @@
 							]
 						},
 						{
-							"name": "saveWalletTransactions",
+							"name": "saveWalletTransactions creating a TOPUP",
 							"request": {
 								"method": "POST",
 								"header": [
@@ -1349,7 +1348,467 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"account_id\": 1,\n  \"amount\": 1,\n  \"transactionType\": \"TOPUP\",\n  \"destination_account_id\": 1\n}",
+									"raw": "{\n  \"account_id\": 1,\n  \"amount\": 100,\n  \"transactionType\": \"TOPUP\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8099/api/wallet/transactions",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8099",
+									"path": [
+										"api",
+										"wallet",
+										"transactions"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"account_id\": 99946571,\n  \"amount\": -88126555.328533,\n  \"transactionType\": \"TOPUP\",\n  \"destination_account_id\": 53501044\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{}"
+								},
+								{
+									"name": "Created",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"account_id\": 99946571,\n  \"amount\": -88126555.328533,\n  \"transactionType\": \"TOPUP\",\n  \"destination_account_id\": 53501044\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"account_id\": 99946571,\n  \"amount\": -88126555.328533,\n  \"transactionType\": \"TOPUP\",\n  \"destination_account_id\": 53501044\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Forbidden",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"account_id\": 99946571,\n  \"amount\": -88126555.328533,\n  \"transactionType\": \"TOPUP\",\n  \"destination_account_id\": 53501044\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"account_id\": 99946571,\n  \"amount\": -88126555.328533,\n  \"transactionType\": \"TOPUP\",\n  \"destination_account_id\": 53501044\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "saveWalletTransactions creating a TRANSFER",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"account_id\": 1,\n  \"amount\": 100,\n  \"transactionType\": \"TRANSFER\",\n  \"destination_account_id\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8099/api/wallet/transactions",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8099",
+									"path": [
+										"api",
+										"wallet",
+										"transactions"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"account_id\": 99946571,\n  \"amount\": -88126555.328533,\n  \"transactionType\": \"TOPUP\",\n  \"destination_account_id\": 53501044\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{}"
+								},
+								{
+									"name": "Created",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"account_id\": 99946571,\n  \"amount\": -88126555.328533,\n  \"transactionType\": \"TOPUP\",\n  \"destination_account_id\": 53501044\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"account_id\": 99946571,\n  \"amount\": -88126555.328533,\n  \"transactionType\": \"TOPUP\",\n  \"destination_account_id\": 53501044\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Forbidden",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"account_id\": 99946571,\n  \"amount\": -88126555.328533,\n  \"transactionType\": \"TOPUP\",\n  \"destination_account_id\": 53501044\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"account_id\": 99946571,\n  \"amount\": -88126555.328533,\n  \"transactionType\": \"TOPUP\",\n  \"destination_account_id\": 53501044\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/wallet/transactions",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"wallet",
+												"transactions"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "saveWalletTransactions creating a WITHDRAW",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"account_id\": 1,\n  \"amount\": 1,\n  \"transactionType\": \"WITHDRAW\" \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2117,7 +2576,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"accountNumber\": \"esse consectetur\",\n  \"accountType\": \"COMPANY\",\n  \"bankName\": \"fugiat\",\n  \"currency\": \"nulla aliqua sint qui\",\n  \"identificationNumber\": 48580648,\n  \"name\": \"consequat dolore dolore sit\",\n  \"routingNumber\": \"amet non\",\n  \"surName\": \"eiusmod amet\"\n}",
+											"raw": "{\n  \"name\": \"ONTOP\",\n  \"surName\": \"INC\",\n  \"identificationNumber\": \"123456789\",\n  \"accountNumber\": \"0245253419\",\n  \"routingNumber\": \"028444018\",\n  \"bankName\": \"test Bank\",\n  \"currency\": \"USD\",\n  \"accountType\": \"COMPANY\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2477,7 +2936,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"accountNumber\": \"esse consectetur\",\n  \"accountType\": \"COMPANY\",\n  \"bankName\": \"fugiat\",\n  \"currency\": \"nulla aliqua sint qui\",\n  \"identificationNumber\": 48580648,\n  \"name\": \"consequat dolore dolore sit\",\n  \"routingNumber\": \"amet non\",\n  \"surName\": \"eiusmod amet\"\n}",
+									"raw": "{\n  \"name\": \"ONTOP\",\n  \"surName\": \"INC\",\n  \"identificationNumber\": \"123456789\",\n  \"accountNumber\": \"0245253419\",\n  \"routingNumber\": \"028444018\",\n  \"bankName\": \"test Bank\",\n  \"currency\": \"USD\",\n  \"accountType\": \"COMPANY\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"

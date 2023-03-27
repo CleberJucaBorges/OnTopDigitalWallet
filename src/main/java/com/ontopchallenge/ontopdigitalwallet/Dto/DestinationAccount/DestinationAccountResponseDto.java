@@ -9,6 +9,6 @@ public class DestinationAccountResponseDto {
     private String accountNumber;
     private String currency;
     private String routingNumber;
-    private Long identificationNumber;
+    private String identificationNumber;
     private UserResponseDto account;
 }

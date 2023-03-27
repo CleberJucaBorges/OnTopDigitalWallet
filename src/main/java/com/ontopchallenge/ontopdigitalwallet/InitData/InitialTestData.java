@@ -29,7 +29,7 @@ public class InitialTestData {
             UserModel account = new UserModel();
             account.setName("ONTOP");
             account.setSurName("INC");
-            account.setIdentificationNumber(123456789L);
+            account.setIdentificationNumber("123456789");
             account.setAccountNumber("0245253419");
             account.setRoutingNumber("028444018");
             account.setBankName("test Bank");
@@ -45,8 +45,8 @@ public class InitialTestData {
         if (!destinationAccountService.existsById(1L))
         {
             DestinationAccountModel account = new DestinationAccountModel();
-            account.setName("TONY STARK");
-            account.setLastName("Osbourne");
+            account.setName("TONY");
+            account.setLastName("STARK");
             account.setAccountNumber("1885226711");
             account.setCurrency("USD");
             account.setRoutingNumber("211927207");

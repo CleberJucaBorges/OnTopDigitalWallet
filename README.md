@@ -5,7 +5,7 @@ This project is a programming challenge from OnTop, which involved making calls 
 
 As a C# specialist, I faced some challenges since I had only done minor maintenance on Java-based systems and had never created a Spring Boot project from scratch. Despite this, I decided to expand my scope by implementing some services that were not required for the challenge, in order to improve the overall functionality and quality of the solution such as Swagger documentation and services to create user for example.
 
-## How to Use
+## Running on localhost
 
 To use this project, follow these steps:
 
@@ -24,11 +24,15 @@ This command will create a container with the MySQL database that the project us
 
 Once the database is running, you can start the project in your preferred Java IDE. The application should now be able to connect to the MySQL database and be ready to use.
 
-Note: Make sure that Docker is installed on your machine before running the above command.
 ```bash
   git clone https://github.com/CleberJucaBorges/OnTopDigitalWallet.git
 ```
+## How to use
+The first step is to register users and destination accounts in order to perform transfers. To make this easier, a method has been created that will create accounts with the same data required by the Mockon present in the InitData package. Note that there is no validation for duplicate registrations since it was not the purpose of the challenge.
 
+After registering the accounts, to perform WITHDRAW or TRANSFER transactions, it is necessary to first perform a TOPUP transaction, otherwise an exception will be thrown.
+
+Examples of how to perform each type of transaction can be found in the Postman collection present in the same GitHub repository as the project.
 
 
 

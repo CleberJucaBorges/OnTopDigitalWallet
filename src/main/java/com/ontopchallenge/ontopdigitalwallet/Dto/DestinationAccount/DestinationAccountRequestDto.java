@@ -10,12 +10,10 @@ public class DestinationAccountRequestDto {
     private String name;
     @NotBlank(message = "the field last name is mandatory")
     private String lastName;
-    @NotNull(message = "the field identification number is mandatory")
+    @NotBlank(message = "the field identification number is mandatory")
     private String identificationNumber;
     @NotBlank(message = "the field account number is mandatory")
     private String accountNumber;
-    @NotBlank(message = "the field bank name is mandatory")
-    private String bankName;
     @NotBlank(message = "the field routing number is mandatory")
     private String routingNumber;
     @NotBlank(message = "the field currency is mandatory")

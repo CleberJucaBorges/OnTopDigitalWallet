@@ -18,7 +18,7 @@ public class UserModel extends BaseEntityIdentity  {
     @Column(nullable = false)
     private String surName;
     @Column(nullable = false)
-    private Long identificationNumber;
+    private String identificationNumber;
     @Column(nullable = false)
     private String accountNumber;
     @Column(nullable = false)
