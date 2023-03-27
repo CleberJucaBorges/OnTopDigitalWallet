@@ -63,6 +63,8 @@ This project has the potential for several possible improvements in the future. 
 
 - Implement Messaging with Kafka: Implementing messaging with Kafka can help to ensure that transactions are reliably sent to the provider bank and can be retried if necessary.
 
+- Improve the unitary tests
+
 These are just a few of the potential improvements that could be made to this project. By continuously improving and updating the project, it can stay relevant and meet the evolving needs of its users.
 
 ## Autores
