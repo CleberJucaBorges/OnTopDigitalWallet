@@ -1,4 +1,4 @@
-package com.ontopchallenge.ontopdigitalwallet.Controller;
+package com.ontopchallenge.ontopdigitalwallet.Exception.Handlers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
-public class ExceptionHandlerController {
+public class MethodArgumentNotValidHandler {
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleValidationException(MethodArgumentNotValidException ex) {
