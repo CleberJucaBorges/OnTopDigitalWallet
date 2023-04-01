@@ -1,8 +1,9 @@
-package com.ontopchallenge.ontopdigitalwallet.Swagger;
+package com.ontopchallenge.ontopdigitalwallet.Config.Swagger;
 
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.ApiInfoBuilder;
+import org.springframework.http.HttpHeaders;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.*;
@@ -32,11 +33,13 @@ public class SwaggerConfig {
 
 
     private ApiKey apiKey() {
-        return new ApiKey("JWT", "Authorization", "header");
+        return new ApiKey("JWT", HttpHeaders.AUTHORIZATION, SecurityScheme.In.HEADER.name());
     }
-
     private SecurityContext securityContext() {
-        return SecurityContext.builder().securityReferences(defaultAuth()).build();
+        return SecurityContext.builder()
+                .securityReferences(Arrays.asList(new SecurityReference("JWT", new AuthorizationScope[0])))
+                .forPaths(PathSelectors.any())
+                .build();
     }
 
     private List<SecurityReference> defaultAuth() {
@@ -51,9 +54,11 @@ public class SwaggerConfig {
                 "This is a OnTop programing challenge",
                 null,
                 null,
-                new Contact("Cleber Juca Borges",  null , "cleber.juca.borges@gmail.com"),
-                "License of API",
-                "API license URL",
+                new Contact("Cleber Juca Borges",
+                        null ,
+                        "cleber.juca.borges@gmail.com"),
+                null,
+                null,
                 Collections.emptyList());
     }
 }

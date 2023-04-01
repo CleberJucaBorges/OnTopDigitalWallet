@@ -1,9 +1,8 @@
 package com.ontopchallenge.ontopdigitalwallet.Controller;
 
-import com.ontopchallenge.ontopdigitalwallet.Config.JwtTokenUtil;
+import com.ontopchallenge.ontopdigitalwallet.Config.Jwt.JwtTokenUtil;
 import com.ontopchallenge.ontopdigitalwallet.Dto.Jwt.JwtRequest;
 import com.ontopchallenge.ontopdigitalwallet.Dto.Jwt.JwtResponse;
-import com.ontopchallenge.ontopdigitalwallet.Model.JwtUserModel;
 import com.ontopchallenge.ontopdigitalwallet.Service.JwtUserDetailsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.security.PermitAll;
 
 @RestController
 @CrossOrigin
@@ -31,19 +32,21 @@ public class JwtAuthenticationController {
         this.jwtUserDetailsService = jwtUserDetailsService;
     }
 
+
+    @PermitAll
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
-        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        this.authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
-        final UserDetails userDetails = jwtUserDetailsService
-                .loadUserByUsername(authenticationRequest.getUsername());
+        final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
+    @PermitAll
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<?> saveUser(@RequestBody JwtRequest user) throws Exception {
         return ResponseEntity.ok(jwtUserDetailsService.save(user));

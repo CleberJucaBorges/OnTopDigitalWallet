@@ -1,4 +1,4 @@
-package com.ontopchallenge.ontopdigitalwallet.Config;
+package com.ontopchallenge.ontopdigitalwallet.Config.Jwt;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package com.ontopchallenge.ontopdigitalwallet.Config;
+package com.ontopchallenge.ontopdigitalwallet.Config.Jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
