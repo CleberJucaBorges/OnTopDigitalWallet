@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.security.PermitAll;
+import javax.validation.Valid;
 
 @RestController
 @CrossOrigin
@@ -48,7 +49,7 @@ public class JwtAuthenticationController {
 
     @PermitAll
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<?> saveUser(@RequestBody JwtRequest user) throws Exception {
+    public ResponseEntity<?> saveUser(@RequestBody @Valid JwtRequest user) throws Exception {
         return ResponseEntity.ok(jwtUserDetailsService.save(user));
     }
 

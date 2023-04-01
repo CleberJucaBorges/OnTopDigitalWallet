@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "jwtUser")
 @Data
 public class JwtUserModel extends BaseEntityUUID {
-    @Column
+    @Column(unique = true)
     private String username;
     @Column
     @JsonIgnore
