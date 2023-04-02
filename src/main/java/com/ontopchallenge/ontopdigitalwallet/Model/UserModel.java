@@ -41,4 +41,8 @@ public class UserModel extends BaseEntityIdentity  {
     @JsonIgnoreProperties("user")
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     private BalanceModel balance;
+    @JsonIgnoreProperties("user")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    private JwtUserModel jwtUserModel;
+
 }

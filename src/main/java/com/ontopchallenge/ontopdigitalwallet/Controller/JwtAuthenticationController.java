@@ -3,7 +3,7 @@ package com.ontopchallenge.ontopdigitalwallet.Controller;
 import com.ontopchallenge.ontopdigitalwallet.Config.Jwt.JwtTokenUtil;
 import com.ontopchallenge.ontopdigitalwallet.Dto.Jwt.JwtRequest;
 import com.ontopchallenge.ontopdigitalwallet.Dto.Jwt.JwtResponse;
-import com.ontopchallenge.ontopdigitalwallet.Service.JwtUserDetailsService;
+import com.ontopchallenge.ontopdigitalwallet.Service.JwtUserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -25,12 +25,12 @@ public class JwtAuthenticationController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
 
-    private final JwtUserDetailsService jwtUserDetailsService;
+    private final JwtUserService jwtUserService;
 
-    public JwtAuthenticationController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, JwtUserDetailsService jwtUserDetailsService) {
+    public JwtAuthenticationController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, JwtUserService jwtUserService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
-        this.jwtUserDetailsService = jwtUserDetailsService;
+        this.jwtUserService = jwtUserService;
     }
 
 
@@ -40,7 +40,7 @@ public class JwtAuthenticationController {
 
         this.authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
-        final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+        final UserDetails userDetails = jwtUserService.loadUserByUsername(authenticationRequest.getUsername());
 
         final String token = jwtTokenUtil.generateToken(userDetails);
 
@@ -50,7 +50,7 @@ public class JwtAuthenticationController {
     @PermitAll
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<?> saveUser(@RequestBody @Valid JwtRequest user) throws Exception {
-        return ResponseEntity.ok(jwtUserDetailsService.save(user));
+        return ResponseEntity.ok(jwtUserService.save(user));
     }
 
     private void authenticate(String username, String password) throws Exception {
